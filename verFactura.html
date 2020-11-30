@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' type='text/css' href='styles/styles.css?v=0'>
+    <link rel='icon' href='imagenes/icono'>
+    <title>Factura</title>
+</head>
+<body class="body">
+    <header class="header">
+        <img class="header__img" src="imagenes/logo.svg" alt="Cafeteria Brioche">
+        <h1>FACTURA DE VENTA</h1>
+        <div class="cerrarSesion"><h8>Cerrar Sesión</h8></div>
+    </header>
+    <section class="body_facturas" >
+        <form name="verFactura" method="POST" action="verFactura.html" enctype="text/plain" class="form" id="verFactura">
+            <div class="lista_facturas"><label>Factura Número</label> <label>Fecha</label><label>Valor</label></div>
+            <div class="lista_facturas"><label>1</label><label>30/12/2020 08:30:00</label><label>30000</label></div>
+        </form>
+    </section>
+    <section class="body_facturas" >
+        <form name="verFactura" method="POST" action="verFactura.html" enctype="text/plain" class="form" id="verFactura">
+            <div class="lista_facturas"><label>Producto</label> <label>Cantidad</label><label>Valor Total</label></div>
+            <div class="lista_facturas"><label>Empanada</label><label>4</label><label>4500</label></div>
+        </form>
+    </section>
+    <section class="body_buscador" style="width: 40%;" >
+        <form name="formCancelar" method="POST" action="gestionarVentas.html" enctype="text/plain" class="form">
+            <input type= "submit" value="Cancelar" name="cancelar" id="cancelar">
+        </form>
+    </section>
+</body>
+</html>

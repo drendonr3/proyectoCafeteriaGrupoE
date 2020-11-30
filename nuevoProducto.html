@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' type='text/css' href='styles/styles.css?v=0'>
+    <link rel='icon' href='imagenes/icono'>
+    <title>Nuevo Producto</title>
+</head>
+<body class="body">
+    <header class="header" style="height: 200px;">
+        <img class="header__img" src="imagenes/logo.svg" alt="Cafeteria Brioche">
+        <h1>NUEVO PRODUCTO</h1>
+        <div class="cerrarSesion"><h8>Cerrar Sesión</h8></div>
+    </header>
+    <section class="body_mean" >
+        <form name="crearUsuarioCajero" method="POST" action="gestionarProducto.html" enctype="text/plain" class="form">
+            <div class="informe"><label>Nombre</label><input type="text" name ="nombre" id ="nombre" autocomplete="off">
+            <label>Precio</label><input type="text" name ="precio" id ="precio" autocomplete="off">
+            <label>Unidad</label><input type="text"  name ="totalVentas" id ="totalVentas" autocomplete="off"> 
+            </div>
+            <input type= "submit" value="Crear" name="crear" id="crear">
+              <input type= "submit" value="Cancelar" name="cancelar" id="cancelar" >
+        </form>
+    </section>
+</body>
+</html>
