@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' type='text/css' href='styles/styles.css?v=0'>
+    <link rel='icon' href='imagenes/icono'>
+    <title>Cafeteria Brioche</title>
+</head>
+<body class="body">
+    <header class="header">
+        <img class="header__img" src="imagenes/logo.svg" alt="Cafeteria Brioche">
+        <h1>CAFETERIA BRIOCHE</h1>
+        <div class="cerrarSesion"><h8>Cerrar Sesión</h8></div>
+    </header>
+    <section class="body_mean" >
+        <form name="crearUsuarioCajero" method="POST" action="crearUsuarioCajero.html" enctype="text/plain" class="form">
+            <input type= "submit" value="Crear Usuario Cajero" name="submitCrearUsuarioCajero" id="submitCrearUsuarioCajero">
+            <input type= "submit" value="Gestionar Producto" name="submitGestionarProducto" id="submitGestionarProducto" form="gestionarProducto">
+            <input type= "submit" value="Informe Ventas" name="submitInformeVentas" id="submitInformeVentas" form="informeVentas">
+            <input type= "submit" value="Gestionar Ventas" name="submitGestionarVentas" id="submitGestionarVentas" form="gestionarVentas">
+        </form>
+        <form name="gestionarProducto" method="POST" action="gestionarProducto.html" enctype="text/plain" id="gestionarProducto">
+        </form>
+        <form name="informeVentas" method="POST" action="informeVentas.html" enctype="text/plain" id="informeVentas">
+        </form>
+        <form name="gestionarVentas" method="POST" action="gestionarVentas.html" enctype="text/plain" id="gestionarVentas">
+        </form>
+    </section>
+</body>
+</html>

@@ -1,0 +1,144 @@
+.body {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  padding-left: 30px;
+  padding-right: 30px;
+  flex-direction: column;
+}
+
+.body_mean {
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    color: #515151;
+    padding: 20px;
+    margin-top: 50px;
+    width: 430px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+  }
+
+  .form {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+  }
+
+
+  [type="text"] {
+    width: 50%;
+    padding: 5px 15px;
+    font-size: 16px;
+    border: 1px solid #999;
+    border-radius: 30px;
+    margin: 10px;
+  }
+
+  [type="password"] {
+    width: 50%;
+    padding: 5px 15px;
+    font-size: 16px;
+    border: 1px solid #999;
+    border-radius: 30px;
+    margin: 10px;
+  }
+  [type="email"] {
+    width: 50%;
+    padding: 5px 15px;
+    font-size: 16px;
+    border: 1px solid #999;
+    border-radius: 30px;
+    margin: 10px;
+  }
+  
+  
+  select {
+    width: 50%;
+    padding: 5px 15px;
+    font-size: 16px;
+    border: 1px solid #999;
+    border-radius: 30px;
+    cursor: pointer;
+  }
+  
+  [type="submit"]{
+    background: #0e3369;
+    border: none;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    margin-top: 8px;
+    width: 60%;
+  }
+  
+  [type="submit"]:hover {
+    box-shadow: 0 0 5px #808080;
+    background: #154c9d;
+  }
+
+  #submitRecuperarContrasena {
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+  
+  .header {
+    align-items: center;
+    display: grid;
+    height: 100px;
+    grid-template-columns: 25% 50% 25%;
+    vertical-align: top;
+    top: 0px;
+    width: 100%;
+    font-size: 25px;
+
+  }
+
+.header__img {
+  margin: 0;
+  width: 400px;
+  height: 100px;
+}
+
+h1{
+  text-align: center;
+  margin: 0;
+}
+
+h8{
+  text-align: left;
+  margin: 0;
+}
+
+.cerrarSesion{
+  display: flex;
+  justify-content: end;
+  flex-direction: row;
+}
+
+
+
+label{
+  padding: 15px;
+}
+
+.informe{
+  display: grid;
+  grid-template-columns: 70% 30%;
+}

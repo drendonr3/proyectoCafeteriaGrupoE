@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' type='text/css' href='styles/styles.css?v=0'>
+    <link rel='icon' href='imagenes/icono'>
+    <title>Cafeteria Brioche</title>
+</head>
+<body class="body">
+    <section class="body_mean">
+        <form name="iniciar" method="POST" action="portal.html" enctype="text/plain" class="form">
+            <input type="image" src="imagenes/inicioSesion.jpeg" width="300" height="300">
+            <input type="text" name ="usuario" id ="usuario" placeholder="Usuario" autocomplete="off">
+            <br>
+            <br>
+            <input type="password" name ="contrasena" id ="contrasena" placeholder="Contraseña" autocomplete="off">
+            <br>
+            <br>
+            <input type= "submit" value="Iniciar Sesion" name="submitIniciarSesion" id="submitIniciarSesion">
+            <input type= "submit" value="Recuperar Contraseña" name="submitRecuperarContrasena" id="submitRecuperarContrasena" form="recuperarContrasena">
+        </form>
+        <form name="recuperarContrasena" method="POST" action="recuperarContrasena.html" enctype="text/plain" id="recuperarContrasena">
+        </form>
+    </section>
+</body>
+</html>

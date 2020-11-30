@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' type='text/css' href='styles/styles.css?v=0'>
+    <link rel='icon' href='imagenes/icono'>
+    <title>Informe Ventas</title>
+</head>
+<body class="body">
+    <header class="header">
+        <img class="header__img" src="imagenes/logo.svg" alt="Cafeteria Brioche">
+        <h1>Informe Ventas</h1>
+        <div class="cerrarSesion"><h8>Cerrar Sesión</h8></div>
+    </header>
+    <section class="body_mean" >
+        <form name="crearUsuarioCajero" method="POST" action="portal.html" enctype="text/plain" class="form">
+            <div class="informe"><label>Dinero En Caja</label><input type="text" class="bloqueados" value="3000000" name ="dineroCaja" id ="dineroCaja" autocomplete="off" disabled=True>
+                <label>Dinero En Medios Electrónicos</label><input type="text" class="bloqueados" value="3000000" name ="dineroElectronicos" id ="dineroElectronicos" autocomplete="off" disabled=True>
+            <label>Total Ventas</label><input type="text" class="bloqueados" value="6000000" name ="totalVentas" id ="totalVentas" autocomplete="off" disabled=True>
+            <label>Balance</label><input type="text" class="bloqueados" value="0" name ="balance" id ="balance" autocomplete="off" disabled=True></div>
+            <input type= "submit" value="Recalcular" name="cancelar" id="cancelar" form="recalcular">
+            <input type= "submit" value="Generar" name="generar" id="generar">
+            <input type= "submit" value="Cancelar" name="cancelar" id="cancelar" >
+        </form>
+        <form name="recalcular" method="POST" action="informeVentas.html" enctype="text/plain" id="recalcular">
+        </form>
+    </section>
+</body>
+</html>
