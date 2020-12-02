@@ -36,6 +36,13 @@
     grid-template-columns: 33% 33% 33% ;
   }
 
+  .lista_poductos_factura{
+    width: 100%;
+    display: grid;
+    justify-content: space-around;
+    grid-template-columns: 50% 50%;
+  }
+
   .body_facturas{
     border: 1px solid #ccc;
     border-radius: 30px;
@@ -67,31 +74,18 @@
   }
 
 
-  [type="text"] {
+  [type="text"],[type="password"],[type="email"],[type="number"] {
     width: 50%;
     padding: 5px 15px;
     font-size: 16px;
     border: 1px solid #999;
     border-radius: 30px;
     margin: 10px;
+  }
+  [type="file"] {
+    border-radius: 10px;
   }
 
-  [type="password"] {
-    width: 50%;
-    padding: 5px 15px;
-    font-size: 16px;
-    border: 1px solid #999;
-    border-radius: 30px;
-    margin: 10px;
-  }
-  [type="email"] {
-    width: 50%;
-    padding: 5px 15px;
-    font-size: 16px;
-    border: 1px solid #999;
-    border-radius: 30px;
-    margin: 10px;
-  }
 
   [type="image"] {
     width: 300px;
@@ -102,8 +96,17 @@
     border-radius: 30px;
     margin: 10px;
   }
-  
-  
+
+  .agregar{
+    width: 150px;
+    height: 150px;
+    padding: 5px 15px;
+    font-size: 16px;
+    border: 1px solid #999;
+    border-radius: 30px;
+    margin: 10px;
+  }
+
   select {
     width: 50%;
     padding: 5px 15px;
