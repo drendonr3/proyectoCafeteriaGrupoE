@@ -7,18 +7,20 @@
     <link rel='icon' href='imagenes/icono'>
     <title>Informe Ventas</title>
 </head>
-<body class="body">
+<body class="body" background="imagenes/fondoInicio.jpg">
     <header class="header">
-        <img class="header__img" src="imagenes/logo.svg" alt="Cafeteria Brioche">
-        <h1>Informe Ventas</h1>
-        <div class="cerrarSesion"><h8>Cerrar Sesión</h8></div>
+        <img class="header__img" src="imagenes/miCuenta.png" alt="Cafeteria Brioche" width="">
+        <h8>Mi Cuenta</h8>
+        <h1>CAFETERIA BRIOCHE</h1>
+        <h8 style="text-align: right;">Cerrar Sesión</h8>
+        <img class="header__img" src="imagenes/cerrarCesion.svg" alt="Cafeteria Brioche" width="">
     </header>
-    <section class="body_mean" >
+    <section class="body_mean" style="margin-top:0px">
         <form name="crearUsuarioCajero" method="POST" action="portal.html" enctype="text/plain" class="form">
-            <div class="informe"><label>Dinero En Caja</label><input type="text" class="bloqueados" value="3000000" name ="dineroCaja" id ="dineroCaja" autocomplete="off" disabled=True>
-                <label>Dinero En Medios Electrónicos</label><input type="text" class="bloqueados" value="3000000" name ="dineroElectronicos" id ="dineroElectronicos" autocomplete="off" disabled=True>
-            <label>Total Ventas</label><input type="text" class="bloqueados" value="6000000" name ="totalVentas" id ="totalVentas" autocomplete="off" disabled=True>
-            <label>Balance</label><input type="text" class="bloqueados" value="0" name ="balance" id ="balance" autocomplete="off" disabled=True></div>
+            <div class="informe"><label class="label-list">Dinero En Caja:</label><input type="text" class="label-list" value="3000000" name ="dineroCaja" id ="dineroCaja" autocomplete="off" disabled=True>
+                <label class="label-list">Dinero En Medios Electrónicos:</label><input type="text" class="label-list" value="3000000" name ="dineroElectronicos" id ="dineroElectronicos" autocomplete="off" disabled=True>
+            <label class="label-list">Total Ventas:</label><input type="text" class="label-list" value="6000000" name ="totalVentas" id ="totalVentas" autocomplete="off" disabled=True>
+            <label class="label-list">Balance:</label><input type="text" class="label-list" value="0" name ="balance" id ="balance" autocomplete="off" disabled=True></div>
             <input type= "submit" value="Recalcular" name="cancelar" id="cancelar" form="recalcular">
             <input type= "submit" value="Generar" name="generar" id="generar">
             <input type= "submit" value="Cancelar" name="cancelar" id="cancelar" >

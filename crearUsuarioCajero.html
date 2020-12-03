@@ -6,16 +6,19 @@
     <link rel='stylesheet' type='text/css' href='styles/styles.css?v=0'>
     <link rel='icon' href='imagenes/icono'>
     <title>Crear Usuario Cajero</title>
+    
 </head>
-<body class="body">
+<body class="body" background="imagenes/fondoInicio.jpg">
     <header class="header">
-        <img class="header__img" src="imagenes/logo.svg" alt="Cafeteria Brioche">
-        <h1>NUEVO CAJERO</h1>
-        <div class="cerrarSesion"><h8>Cerrar Sesión</h8></div>
+        <img class="header__img" src="imagenes/miCuenta.png" alt="Cafeteria Brioche" width="">
+        <h8>Mi Cuenta</h8>
+        <h1>CAFETERIA BRIOCHE</h1>
+        <h8 style="text-align: right;">Cerrar Sesión</h8>
+        <img class="header__img" src="imagenes/cerrarCesion.svg" alt="Cafeteria Brioche" width="">
     </header>
-    <section class="body_mean">
-        <form name="crearUsuarioCajero" method="POST" action="portal.html" enctype="text/plain" class="form">
-            <input type="image" src="imagenes/inicioSesion.jpeg" width="300" height="300">
+    <section class="body_mean" style="margin-top:0px;"> 
+        <form name="crearUsuarioCajero" method="POST" action="portal.html" enctype="text/plain" class="form" style="margin-top:0px;">
+            <input type="image" class="imagenInicio" src="imagenes/inicioSesion.svg" style="height: 250px;width: 250px;">
             <input type="email" name ="correo" id ="correo" placeholder="Correo" autocomplete="off">
             <br>
             <br>

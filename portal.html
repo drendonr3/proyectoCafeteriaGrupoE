@@ -4,28 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel='stylesheet' type='text/css' href='styles/styles.css?v=0'>
-    <link rel='icon' href='imagenes/icono'>
+    <link rel='icon' href='imagenes/icono.svg'>
     <title>Cafeteria Brioche</title>
 </head>
-<body class="body">
+<body class="body" background="imagenes/fondoInicio.jpg">
     <header class="header">
-        <img class="header__img" src="imagenes/logo.svg" alt="Cafeteria Brioche">
+        <img class="header__img" src="imagenes/miCuenta.png" alt="Cafeteria Brioche" width="">
+        <h8>Mi Cuenta</h8>
         <h1>CAFETERIA BRIOCHE</h1>
-        <div class="cerrarSesion"><h8>Cerrar Sesión</h8></div>
+        <h8 style="text-align: right;">Cerrar Sesión</h8>
+        <img class="header__img" src="imagenes/cerrarCesion.svg" alt="Cafeteria Brioche" width="">
     </header>
-    <section class="body_mean" >
-        <form name="crearUsuarioCajero" method="POST" action="crearUsuarioCajero.html" enctype="text/plain" class="form">
-            <input type= "submit" value="Crear Usuario Cajero" name="submitCrearUsuarioCajero" id="submitCrearUsuarioCajero">
-            <input type= "submit" value="Gestionar Producto" name="submitGestionarProducto" id="submitGestionarProducto" form="gestionarProducto">
-            <input type= "submit" value="Informe Ventas" name="submitInformeVentas" id="submitInformeVentas" form="informeVentas">
-            <input type= "submit" value="Gestionar Ventas" name="submitGestionarVentas" id="submitGestionarVentas" form="gestionarVentas">
-        </form>
-        <form name="gestionarProducto" method="POST" action="gestionarProducto.html" enctype="text/plain" id="gestionarProducto">
-        </form>
-        <form name="informeVentas" method="POST" action="informeVentas.html" enctype="text/plain" id="informeVentas">
-        </form>
-        <form name="gestionarVentas" method="POST" action="gestionarVentas.html" enctype="text/plain" id="gestionarVentas">
-        </form>
+    <section class="body_mean" style="margin-top: 10px;">
+        <div class="mosaico22">
+            <form name="crearUsuarioCajero" id="crearUsuarioCajero" method="POST" action="crearUsuarioCajero.html" enctype="text/plain" class="option">
+                <input type= "image" src="imagenes/agreagarUsuario.svg" class="option-image">
+                <label class="option-label">Crear Usuario Cajero</label>
+            </form>
+            
+            <form name="gestionarProducto" method="POST" action="gestionarProducto.html" enctype="text/plain" id="gestionarProducto" class="option">
+                <input type= "image" src="imagenes/gestionarProductos.svg" class="option-image">
+                <label class="option-label">Gestionar Productos</label>
+            </form>
+            <form name="informeVentas" method="POST" action="informeVentas.html" enctype="text/plain" id="informeVentas" class="option">
+                <input type= "image" src="imagenes/informeVentas.png" class="option-image">
+                <label class="option-label">Informe de Ventas</label>
+            </form>
+            <form name="gestionarVentas" method="POST" action="gestionarVentas.html" enctype="text/plain" id="gestionarVentas" class="option">
+                <input type= "image" src="imagenes/gestionarFacturas.svg" class="option-image">
+                <label class="option-label">Gestionar Facturas</label>
+            </form>
+        </div>
     </section>
 </body>
 </html>

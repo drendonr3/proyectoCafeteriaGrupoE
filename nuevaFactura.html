@@ -7,26 +7,28 @@
     <link rel='icon' href='imagenes/icono'>
     <title>Factura</title>
 </head>
-<body class="body">
+<body class="body" background="imagenes/fondoInicio.jpg">
     <header class="header">
-        <img class="header__img" src="imagenes/logo.svg" alt="Cafeteria Brioche">
-        <h1>FACTURA DE VENTA</h1>
-        <div class="cerrarSesion"><h8>Cerrar Sesión</h8></div>
+        <img class="header__img" src="imagenes/miCuenta.png" alt="Cafeteria Brioche" width="">
+        <h8>Mi Cuenta</h8>
+        <h1>CAFETERIA BRIOCHE</h1>
+        <h8 style="text-align: right;">Cerrar Sesión</h8>
+        <img class="header__img" src="imagenes/cerrarCesion.svg" alt="Cafeteria Brioche" width="">
     </header>
     <div style="display: grid; grid-template-columns: 55% 5% 38%;width: 100%;">
         <section class="body_facturas">
             <form name="verFactura" method="POST" action="verFactura.html" enctype="text/plain" class="form" id="verFactura">
-                <div class="lista_producto_factura"><label>Producto</label><label>Cantidad</label><label>Valor Total</label></div>
-                <div class="lista_producto_factura"><label>Empanada</label><input type="text" value="4"></input><label>4500</label><input type="button" value="Eliminar"></div>
-                <div class="lista_producto_factura"><label>Empanada</label><input type="text" value="4"></input><label>4500</label><input type="button" value="Eliminar"></div>
-                <div class="lista_producto_factura"><label>Empanada</label><input type="text" value="4"></input><label>4500</label><input type="button" value="Eliminar"></div>
-                <div class="lista_producto_factura"><label>Empanada</label><input type="text" value="4"></input><label>4500</label><input type="button" value="Eliminar"></div>
-                <div class="lista_producto_factura"><label>Empanada</label><input type="text" value="4"></input><label>4500</label><input type="button" value="Eliminar"></div>
+                <div class="lista_producto_factura"><label class="label-list">Producto:</label><label class="label-list">Cantidad:</label><label class="label-list">Valor Total:</label></div>
+                <div class="lista_producto_factura"><label class="label-list">Empanada</label><input type="text" value="4"></input><label class="label-list">4500</label><input type="button" value="Eliminar"></div>
+                <div class="lista_producto_factura"><label class="label-list">Empanada</label><input type="text" value="4"></input><label class="label-list">4500</label><input type="button" value="Eliminar"></div>
+                <div class="lista_producto_factura"><label class="label-list">Empanada</label><input type="text" value="4"></input><label class="label-list">4500</label><input type="button" value="Eliminar"></div>
+                <div class="lista_producto_factura"><label class="label-list">Empanada</label><input type="text" value="4"></input><label class="label-list">4500</label><input type="button" value="Eliminar"></div>
+                <div class="lista_producto_factura"><label class="label-list">Empanada</label><input type="text" value="4"></input><label class="label-list">4500</label><input type="button" value="Eliminar"></div>
             </form>
         </section>
         <section></section>
         <section class="body_facturas">
-            <label>Producto</label>
+            <label class="label-list">Producto</label>
            <input type="text">
            <form name="agregarProducto" method="POST" action="nuevaFactura.html" enctype="text/plain" class="form">
             <div class="lista_poductos_factura"><input type= "image" class="agregar" src="imagenes/buñuelo.jpg" > 

@@ -7,15 +7,17 @@
     <link rel='icon' href='imagenes/icono'>
     <title>Factura</title>
 </head>
-<body class="body">
+<body class="body" background="imagenes/fondoInicio.jpg">
     <header class="header">
-        <img class="header__img" src="imagenes/logo.svg" alt="Cafeteria Brioche">
-        <h1>FACTURA DE VENTA</h1>
-        <div class="cerrarSesion"><h8>Cerrar Sesión</h8></div>
+        <img class="header__img" src="imagenes/miCuenta.png" alt="Cafeteria Brioche" width="">
+        <h8>Mi Cuenta</h8>
+        <h1>CAFETERIA BRIOCHE</h1>
+        <h8 style="text-align: right;">Cerrar Sesión</h8>
+        <img class="header__img" src="imagenes/cerrarCesion.svg" alt="Cafeteria Brioche" width="">
     </header>
     <section class="body_facturas" >
         <form name="verFactura" method="POST" action="verFactura.html" enctype="text/plain" class="form" id="verFactura">
-            <div class="lista_producto_factura"><label>Valor a Pagar</label><label>30000</label></div>
+            <div class="lista_producto_factura"><label class="label-list">Valor a Pagar:</label><label class="label-list">30000</label></div>
         </form>
     </section>
     <section class="body_buscador" style="width: 40%;" >
@@ -30,8 +32,8 @@
     </section>
     <section class="body_facturas" >
         <form name="verFactura" method="POST" action="verFactura.html" enctype="text/plain" class="form" id="verFactura">
-            <div class="lista_facturas"><label>Factura Número</label> <label>Fecha</label><label>Valor</label></div>
-            <div class="lista_facturas"><label>---</label><label>---</label><label>---</label></div>
+            <div class="lista_facturas"><label class="label-list">Factura Número:</label> <label class="label-list">Fecha:</label><label class="label-list">Valor:</label></div>
+            <div class="lista_facturas"><label class="label-list">---</label><label class="label-list">---</label><label class="label-list">---</label></div>
         </form>
     </section>
 </body>
