@@ -3,35 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' type='text/css' href='styles/styles.css?v=0'>
-    <link rel='icon' href='imagenes/icono.svg'>
+    <link rel='stylesheet' type='text/css' href="{{ url_for('static',filename='css/styles.css') }}">
     <title>Cafeteria Brioche</title>
 </head>
-<body class="body" background="imagenes/fondoInicio.jpg">
+<body class="body" background="{{url_for('static',filename='images/fondoInicio.jpg') }}">
     <header class="header">
-        <img class="header__img" src="imagenes/miCuenta.png" alt="Cafeteria Brioche" width="">
+        <img class="header__img" src="{{url_for('static',filename='images/miCuenta.png')}}" alt="Cafeteria Brioche" width="">
         <h8>Mi Cuenta</h8>
         <h1>CAFETERIA BRIOCHE</h1>
         <h8 style="text-align: right;">Cerrar Sesión</h8>
-        <img class="header__img" src="imagenes/cerrarCesion.svg" alt="Cafeteria Brioche" width="">
+        <img class="header__img" src="{{url_for('static',filename='images/cerrarCesion.svg')}}" alt="Cafeteria Brioche" width="">
     </header>
     <section class="body_mean" style="margin-top: 10px;">
         <div class="mosaico22">
-            <form name="crearUsuarioCajero" id="crearUsuarioCajero" method="POST" action="crearUsuarioCajero.html" enctype="text/plain" class="option">
-                <input type= "image" src="imagenes/agreagarUsuario.svg" class="option-image">
+            <form method="POST" action="/crearUsuarioCajero" class="option">
+                <input type= "image" src="{{url_for('static',filename='images/agreagarUsuario.svg')}}" class="option-image">
                 <label class="option-label">Crear Usuario Cajero</label>
             </form>
             
             <form name="gestionarProducto" method="POST" action="gestionarProducto.html" enctype="text/plain" id="gestionarProducto" class="option">
-                <input type= "image" src="imagenes/gestionarProductos.svg" class="option-image">
+                <input type= "image" src="{{url_for('static',filename='images/gestionarProductos.svg')}}"  class="option-image">
                 <label class="option-label">Gestionar Productos</label>
             </form>
             <form name="informeVentas" method="POST" action="informeVentas.html" enctype="text/plain" id="informeVentas" class="option">
-                <input type= "image" src="imagenes/informeVentas.png" class="option-image">
+                <input type= "image" src="{{url_for('static',filename='images/informeVentas.png')}}" class="option-image">
                 <label class="option-label">Informe de Ventas</label>
             </form>
             <form name="gestionarVentas" method="POST" action="gestionarVentas.html" enctype="text/plain" id="gestionarVentas" class="option">
-                <input type= "image" src="imagenes/gestionarFacturas.svg" class="option-image">
+                <input type= "image" src="{{url_for('static',filename='images/gestionarFacturas.svg')}}" class="option-image">
                 <label class="option-label">Gestionar Facturas</label>
             </form>
         </div>
