@@ -13,7 +13,7 @@
     border-radius: 30px;
     color: #515151;
     padding: 20px;
-    margin-top: 150px;
+    margin-top: 60px;
     width: 430px;
     display: flex;
     justify-content: space-around;
@@ -72,7 +72,7 @@
     justify-content: space-between;
     flex-direction: column;
     align-items: center;
-    margin-top: 50px
+    margin-top: 0px
   }
 
 

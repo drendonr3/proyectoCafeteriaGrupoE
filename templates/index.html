@@ -9,9 +9,9 @@
 </head>
 <body class="body" background="{{url_for('static',filename='images/fondoInicio.jpg') }}">
     <section class="body_mean" style="background-image:{{ url_for('static',filename='images/marco.png')}}">
-        <form method="POST" action="/login" class="form">
-            <input type="image" class="imagenInicio" src="{{url_for('static',filename='images/inicioSesion.svg') }}" style="height: 250px;width: 250px;">
-            <input type="text" name ="usuario" id ="usuario" placeholder="Usuario/Correo" autocomplete="off">
+        <div class="form"><input type="image" class="imagenInicio" src="{{url_for('static',filename='images/inicioSesion.svg') }}" style="height: 250px;width: 250px;"></div>
+        <form method="POST" action="/login" class="form">            
+            <input type="text" name ="usuario" id ="usuario" placeholder="Usuario" autocomplete="off">
             <br>
             <br>
             <input type="password" name ="contrasena" id ="contrasena" placeholder="Contraseña" autocomplete="off">

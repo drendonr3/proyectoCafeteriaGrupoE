@@ -53,25 +53,61 @@ def crearUsuarioCajero():
 def enviarCorreoNuevo():
     try:
         if request.method == 'POST':
-            usuario=request.form['usuario'] #sacar los campos del form
-            clave=request.form['contrasena']
-            email=request.form['correo']
-            if utils.isEmailValid(email):
-                if utils.isUsernameValid(usuario):
-                        if utils.isPasswordValid(clave):
-                            yag=yagmail.SMTP('danielrendon@uninorte.edu.co', 'Desde14151617') 
-                            yag.send(to=email,subject='Validar Cuenta',
-                            contents='Bienvenido usa este link para activar tu cuenta')  
-                            return 'revisa tu correo='+email
-                        else:
-                            return 'Error Clave no cumple con lo exigido'    
+            if request.form['submit'] == 'Crear':
+                usuario=request.form['usuario'] #sacar los campos del form
+                clave=request.form['contrasena']
+                email=request.form['correo']
+                if utils.isEmailValid(email):
+                    if utils.isUsernameValid(usuario):
+                            if utils.isPasswordValid(clave):
+                                yag=yagmail.SMTP('danielrendon@uninorte.edu.co', 'Desde14151617') 
+                                yag.send(to=email,subject='Validar Cuenta',
+                                contents='Bienvenido usa este link para activar tu cuenta')  
+                                return 'revisa tu correo='+email
+                            else:
+                                return 'Error Clave no cumple con lo exigido'    
+                    else:
+                        return 'Error usuario no cumple con lo exigido'
                 else:
-                    return 'Error usuario no cumple con lo exigido'
-            else:
-                return 'Error Correo no cumple con lo exigido'                      
+                    return 'Error Correo no cumple con lo exigido'
+            if request.form['submit'] == 'Cancelar':
+                return render_template('portal.html')
         else:
             return 'Error faltan datos para validar'
     
     except:
-        return render_template('crearUsuarioCajero.html')
+        return render_template('crearsuarioCajero.html')
+@app.route('/gestionarProducto',methods=['GET', 'POST'])
+def gestionarProducto():
+    return render_template('gestionarProducto.html')
+
+@app.route('/accionGestionarProducto',methods=['GET', 'POST'])
+def accionGestionarProducto():
+    try:
+        if request.method == 'POST':
+            if request.form['submit'] == 'Nuevo Producto':
+                return render_template('nuevoProducto.html')
+               
+            if request.form['submit'] == 'Cancelar':
+                return render_template('portal.html')
+        else:
+            return 'Error faltan datos para validar'
+    
+    except:
+        return render_template('portal.html')
+
+@app.route('/crearProducto',methods=['GET', 'POST'])
+def crearProducto():
+    try:
+        if request.method == 'POST':
+            if request.form['submit'] == 'Crear':
+                return render_template('gestionarProducto.html')
+               
+            if request.form['submit'] == 'Cancelar':
+                return render_template('gestionarProducto.html')
+        else:
+            return 'Error faltan datos para validar'
+    
+    except:
+        return render_template('portal.html')
 

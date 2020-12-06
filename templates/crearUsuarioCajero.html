@@ -17,8 +17,8 @@
         <img class="header__img" src="{{url_for('static',filename='images/cerrarCesion.svg')}}" alt="Cafeteria Brioche" width="">
     </header>
     <section class="body_mean" style="margin-top:0px;"> 
+        <div class="form"><input type="image" class="imagenInicio" src="{{url_for('static',filename='images/inicioSesion.svg') }}" style="height: 250px;width: 250px;"></div>
         <form method="POST" action="/enviarCorreoNuevo" class="form" style="margin-top:0px;">
-            <input type="image" class="imagenInicio" src="{{url_for('static',filename='images/inicioSesion.svg') }}" style="height: 250px;width: 250px;">
             <input type="text" name ="usuario" id ="usuario" placeholder="Usuario">
             <br>
             <br>
@@ -28,8 +28,8 @@
             <input type="password" name ="contrasena" id ="contrasena" placeholder="Contraseña"
             <br>
             <br>
-            <input type= "submit" value="Crear" name="crearUsuario" id="crearUsuario">
-            <input type= "submit" value="Cancelar" name="cancelar" id="cancelar">
+            <input type= "submit" value="Crear" name="submit" id="crearUsuario">
+            <input type= "submit" value="Cancelar" name="submit" id="cancelar">
     </section>
 </body>
 </html>
