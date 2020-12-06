@@ -98,7 +98,7 @@ def accionGestionarProducto():
 
 @app.route('/crearProducto',methods=['GET', 'POST'])
 def crearProducto():
-    #ssss
+    #sssshhhhhhhhhhh
     try:
         if request.method == 'POST':
             if request.form['submit'] == 'Crear':
