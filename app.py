@@ -1,11 +1,12 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,flash,url_for,current_app
 import yagmail
 import utils
+import os
 app= Flask(__name__)
-
+app.secret_key=os.urandom(24)
 @app.route('/')
-def hola_mundo():
-   return render_template('index.html',titulo='Inicio de Sesión')
+def index():
+    return render_template('index.html',titulo='Inicio de Sesión')
 
 @app.route('/login',methods=['POST','GET'])
 def login():
@@ -15,10 +16,17 @@ def login():
     if request.method == 'POST':
         usuario=request.form['usuario'] #sacar los campos del form
         contrasena=request.form['contrasena']
-        if usuario==usuarioAdmin:
-            #if contrasena==contrasenaAdmin:
-            return render_template('portal.html',header='CAFETERÍA BRIOCHE')
-    return render_template('index.html',titulo='Inicio de Sesión')
+        if usuario=="":
+            flash('Campo de Usuario Vacío')
+            return index()
+        else:
+            if usuario==usuarioAdmin:
+                #if contrasena==contrasenaAdmin:
+                return render_template('portal.html',header='CAFETERÍA BRIOCHE')
+            else:
+                flash('El Usuario es Incorrecto')
+                return index()
+    return index()
 
 @app.route('/recurperarContrasena',methods=['POST','GET'])
 def recurperarContrasena():

@@ -5,6 +5,15 @@
         <div class="form"><input type="image" class="imagenInicio" src="{{url_for('static',filename='images/inicioSesion.svg') }}" style="height: 250px;width: 250px;"></div>
         <form method="POST" action="/login" class="form">            
             <input type="text" name ="usuario" id ="usuario" placeholder="Usuario">
+            <div class="alert alert-warning alert-dismissible fade show">
+                {% with mensajes = get_flashed_messages() %}
+                {% if mensajes %}
+                {% for mensaje in mensajes %}
+                    <strong style="color: black;"> {{mensaje}}</strong>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+                </div>
             <br>
             <br>
             <input type="password" name ="contrasena" id ="contrasena" placeholder="Contraseña">
@@ -13,7 +22,7 @@
             <input type= "submit" value="Iniciar Sesion" name="submit" id="submitIniciarSesion">
         </form>
         <form method="POST" action="/recurperarContrasena" class="form"> 
-            <input type= "submit" value="Recuperar Contraseña" name="submit" id="submitRecuperarContrasena" sty>
-
+            <input type= "submit" value="Recuperar Contraseña" name="submit" id="submitRecuperarContrasena" >
+        </form>            
     </section>
 {% endblock %}
