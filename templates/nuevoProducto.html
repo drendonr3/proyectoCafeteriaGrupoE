@@ -1,30 +1,16 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' type='text/css' href="{{ url_for('static',filename='css/styles.css') }}">
-    <title>Nuevo Producto</title>
-</head>
-<body class="body" background="{{url_for('static',filename='images/fondoInicio.jpg') }}">
-    <header class="header">
-        <img class="header__img" src="{{url_for('static',filename='images/miCuenta.png')}}" alt="Cafeteria Brioche">
-        <h8>Mi Cuenta</h8>
-        <h1>CAFETERIA BRIOCHE</h1>
-        <h8 style="text-align: right;">Cerrar Sesión</h8>
-        <img class="header__img" src="{{url_for('static',filename='images/cerrarCesion.svg')}}" alt="Cafeteria Brioche">
-    </header>
+{% extends "base.html" %}
+
+{% block contenido %}
     <section class="body_mean" style="margin-top: 0px;padding-top: 0px">
-        <form name="crearUsuarioCajero" method="POST" action="/crearProducto" enctype="text/plain" class="form">
-            <div class="informe"><label class="label-list">Nombre:</label><input type="text" name ="nombre" id ="nombre" autocomplete="off">
-            <label class="label-list">Precio:</label><input type="text" name ="precio" id ="precio" autocomplete="off">
-            <label class="label-list">Unidad:</label><input type="text"  name ="totalVentas" id ="totalVentas" autocomplete="off"> 
-            <label class="label-list">Cantidad en Stock:</label><input type="number"  name ="cantidad" id ="cantidad" autocomplete="off"> 
-            <label class="label-list">Imagen:</label><input type="file"  name ="fileImagen" id ="fileImagen" autocomplete="off"> </div>
+        <form method="POST" action="/crearProducto" class="form">
+            <div class="informe"><label class="label-list">Nombre:</label><input type="text" name ="nombre" id ="nombre">
+            <label class="label-list">Precio:</label><input type="text" name ="precio" id ="precio">
+            <label class="label-list">Unidad:</label><input type="text"  name ="totalVentas" id ="totalVentas"> 
+            <label class="label-list">Cantidad en Stock:</label><input type="number"  name ="cantidad" id ="cantidad"> 
+            <label class="label-list">Imagen:</label><input type="file"  name ="fileImagen" id ="fileImagen"> </div>
             <input type= "image" src="{{url_for('static',filename='images/buñuelo.jpg')}}" >
             <input type= "submit" value="Crear" name="submit" id="crear">
             <input type= "submit" value="Cancelar" name="submit" id="cancelar" >
         </form>
     </section>
-</body>
-</html>
+{% endblock %}

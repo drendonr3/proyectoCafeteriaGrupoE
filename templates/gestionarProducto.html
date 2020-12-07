@@ -1,33 +1,19 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' type='text/css' href="{{ url_for('static',filename='css/styles.css') }}">
-    <title>Gestionar Productos</title>
-</head>
-<body class="body" background="{{url_for('static',filename='images/fondoInicio.jpg') }}">
-    <header class="header">
-        <img class="header__img" src="{{url_for('static',filename='images/miCuenta.png')}}" alt="Cafeteria Brioche">
-        <h8>Mi Cuenta</h8>
-        <h1>CAFETERIA BRIOCHE</h1>
-        <h8 style="text-align: right;">Cerrar Sesión</h8>
-        <img class="header__img" src="{{url_for('static',filename='images/cerrarCesion.svg')}}" alt="Cafeteria Brioche">
-    </header>
+{% extends "base.html" %}
+
+{% block contenido %}
     <section class="body_buscador" >
         <form method="POST" action="/accionGestionarProducto" class="form">
             <div class="informe"><label class="label-list">Nombre Producto</label><input type="text" class="bloqueados" 
-                placeholder="Nombre" name ="nombreProducto" id ="nombreProducto" autocomplete="off"></div>
+                placeholder="Nombre" name ="nombreProducto" id ="nombreProducto"></div>
             <input type= "submit" value="Buscar" name="submit" id="buscar">
             <input type= "submit" value="Nuevo Producto" name="submit" id="nuevoProducto">
             <input type= "submit" value="Cancelar" name="submit" id="submitCancelar">
         </form>
     </section>
     <section class="body_producto" >
-        <form name="buscarProducto" method="POST" action="eliminarModificar.html" enctype="text/plain" class="form" style="margin-top: 0;">
+        <form method="POST" action="/eliminarModificar" class="form" style="margin-top: 0;">
             <div class="lista_poductos"><input class="image_productos" type= "image" src="{{url_for('static',filename='images/buñuelo.jpg')}}"> 
             <input type= "image" class="image_productos" src="{{url_for('static',filename='images/empanada.png')}}"></div>
         </form>
     </section>
-</body>
-</html>
+    {% endblock %}

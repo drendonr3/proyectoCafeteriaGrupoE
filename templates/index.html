@@ -1,27 +1,19 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' type='text/css' href="{{ url_for('static',filename='css/styles.css') }}">
-    
-    <title>Cafeteria Brioche</title>
-</head>
-<body class="body" background="{{url_for('static',filename='images/fondoInicio.jpg') }}">
+{% extends "base.html" %}
+
+{% block contenido %}
     <section class="body_mean" style="background-image:{{ url_for('static',filename='images/marco.png')}}">
         <div class="form"><input type="image" class="imagenInicio" src="{{url_for('static',filename='images/inicioSesion.svg') }}" style="height: 250px;width: 250px;"></div>
         <form method="POST" action="/login" class="form">            
-            <input type="text" name ="usuario" id ="usuario" placeholder="Usuario" autocomplete="off">
+            <input type="text" name ="usuario" id ="usuario" placeholder="Usuario">
             <br>
             <br>
-            <input type="password" name ="contrasena" id ="contrasena" placeholder="Contraseña" autocomplete="off">
+            <input type="password" name ="contrasena" id ="contrasena" placeholder="Contraseña">
             <br>
             <br>
-            <input type= "submit" value="Iniciar Sesion" name="submitIniciarSesion" id="submitIniciarSesion">
-            <input type= "submit" value="Recuperar Contraseña" name="submitRecuperarContrasena" id="submitRecuperarContrasena" form="recuperarContrasena">
+            <input type= "submit" value="Iniciar Sesion" name="submit" id="submitIniciarSesion">
         </form>
-        <form name="recuperarContrasena" method="POST" action="/recurperarContrasena" enctype="text/plain" id="recuperarContrasena">
-        </form>
+        <form method="POST" action="/recurperarContrasena" class="form"> 
+            <input type= "submit" value="Recuperar Contraseña" name="submit" id="submitRecuperarContrasena" sty>
+
     </section>
-</body>
-</html>
+{% endblock %}

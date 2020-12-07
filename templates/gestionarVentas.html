@@ -1,36 +1,20 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' type='text/css' href='styles/styles.css?v=0'>
-    <link rel='icon' href='imagenes/icono'>
-    <title>Gestionar Ventas</title>
-</head>
-<body class="body" background="imagenes/fondoInicio.jpg">
-    <header class="header">
-        <img class="header__img" src="imagenes/miCuenta.png" alt="Cafeteria Brioche" width="">
-        <h8>Mi Cuenta</h8>
-        <h1>CAFETERIA BRIOCHE</h1>
-        <h8 style="text-align: right;">Cerrar Sesión</h8>
-        <img class="header__img" src="imagenes/cerrarCesion.svg" alt="Cafeteria Brioche" width="">
-    </header>
+{% extends "base.html" %}
+
+{% block contenido %}
     <section class="body_buscador" >
-        <form name="formNuevaFactura" method="POST" action="nuevaFactura.html" enctype="text/plain" class="form">
+        <form method="POST" action="accionGestionarFacturas" class="form">
             <div style="width: 300px;"></div>
-            <input type= "submit" value="Nueva Factura" name="nuevaFactura" id="nuevaFactura">
+            <input type= "submit" value="Nueva Factura" name="submit" id="nuevaFactura">
             <input type= "button" value="Ver Historico" name="verHistorico" id="verHistorico">
-            <input type= "submit" value="Cancelar" name="cancsubmitCancelarelar" id="submitCancelar" form="cancelar">
-        </form>
-        <form name="cancelar" method="POST" action="portal.html" enctype="text/plain" id="cancelar">
+            <input type= "submit" value="Cancelar" name="submit" id="submitCancelar">
         </form>
     </section>
     <section class="body_facturas" >
-        <form name="verFactura" method="POST" action="verFactura.html" enctype="text/plain" class="form" id="verFactura">
+        <form method="POST" action="/verFactura" class="form">
             <div class="lista_facturas"><label class="label-list">Factura Número:</label> <label class="label-list">Fecha:</label><label class="label-list">Valor:</label></div>
-            <div class="lista_facturas"><a href="verFactura.html"><label class="label-list">1</label></a><label class="label-list">30/12/2020 08:30:00</label><label class="label-list">30000</label></div>
-            <div class="lista_facturas"><a href="verFactura.html"><label class="label-list">2</label></a><label class="label-list">30/12/2020 12:30:00</label><label class="label-list">30000</label></div>
+            <div class="lista_facturas"><a href="/verFactura"><label class="label-list">1</label></a><label class="label-list">30/12/2020 08:30:00</label><label class="label-list">30000</label></div>
+            <div class="lista_facturas"><a href="/verFactura"><label class="label-list">2</label></a><label class="label-list">30/12/2020 12:30:00</label><label class="label-list">30000</label></div>
         </form>
     </section>
 </body>
-</html>
+{% endblock %}
