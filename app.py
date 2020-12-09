@@ -1,32 +1,45 @@
-from flask import Flask, render_template, request,flash,url_for,current_app
+from flask import Flask, render_template, request,flash,redirect,session
 import yagmail
 import utils
 import os
+from usuarios import usuarios
 app= Flask(__name__)
 app.secret_key=os.urandom(24)
 @app.route('/')
 def index():
     return render_template('index.html',titulo='Inicio de Sesión')
+    
+@app.route('/cerrarSesion')
+def cerrarSesion():
+    session.clear()
+    return redirect('/')
 
 @app.route('/login',methods=['POST','GET'])
 def login():
-    usuarioAdmin= 'admin'
-    contrasenaAdmin= '0000'
     #try:
     if request.method == 'POST':
         usuario=request.form['usuario'] #sacar los campos del form
         contrasena=request.form['contrasena']
         if usuario=="":
             flash('Campo de Usuario Vacío')
-            return index()
+            return redirect('/')
         else:
-            if usuario==usuarioAdmin:
-                #if contrasena==contrasenaAdmin:
-                return render_template('portal.html',header='CAFETERÍA BRIOCHE')
+            if contrasena=="":
+                flash('Campo de Contraseña Vacío')
+                flash('baduser---'+usuario)
+                return redirect('/')
             else:
-                flash('El Usuario es Incorrecto')
-                return index()
-    return index()
+                for diccionario in usuarios:
+                    if diccionario['usuario']==usuario and contrasena==diccionario['contrasena']:
+                        session.clear()
+                        session["user"] = usuario
+                        session["auth"] = 1
+                        session["type"] = diccionario['tipo']
+                        return render_template('portal.html',header='CAFETERÍA BRIOCHE')
+                flash('Usuario o Contraseña Incorrecto')
+                flash('baduser---'+usuario)
+                return redirect('/')
+    return redirect('/')
 
 @app.route('/recurperarContrasena',methods=['POST','GET'])
 def recurperarContrasena():
@@ -41,14 +54,16 @@ def enviarCorreoRecuperacion():
                 yag=yagmail.SMTP('danielrendon@uninorte.edu.co', 'Desde14151617') 
                 yag.send(to=email,subject='Recuperar Contraseña',
                 contents='Usa este link para recuperar tu contraseña')  
-                return 'revisa tu correo='+email
+                flash('success')
+                return redirect('/recurperarContrasena') 
             else:
-                return 'Error Correo no cumple con lo exigido'                      
+                flash('Ingrese una Dirección de Correo Válida')
+                return redirect('/recurperarContrasena')                  
         else:
-            return 'Error faltan datos para validar'
+            return render_template('recuperarContrasena.html',titulo='Recuperar Contraseña')
  
     except:
-        return render_template('recuperarContrasena.html')
+        return render_template('recuperarContrasena.html',titulo='Recuperar Contraseña')
 
 @app.route('/crearUsuarioCajero', methods=['GET', 'POST'])
 def crearUsuarioCajero():
@@ -62,26 +77,33 @@ def enviarCorreoNuevo():
                 usuario=request.form['usuario'] #sacar los campos del form
                 clave=request.form['contrasena']
                 email=request.form['correo']
-                if utils.isEmailValid(email):
-                    if utils.isUsernameValid(usuario):
-                            if utils.isPasswordValid(clave):
-                                yag=yagmail.SMTP('danielrendon@uninorte.edu.co', 'Desde14151617') 
-                                yag.send(to=email,subject='Validar Cuenta',
-                                contents='Bienvenido usa este link para activar tu cuenta')  
-                                return 'revisa tu correo='+email
-                            else:
-                                return 'Error Clave no cumple con lo exigido'    
+                if utils.isUsernameValid(usuario):
+                    if utils.isEmailValid(email):
+                        if utils.isPasswordValid(clave):
+                            yag=yagmail.SMTP('danielrendon@uninorte.edu.co', 'Desde14151617') 
+                            yag.send(to=email,subject='Validar Cuenta',
+                            contents='Bienvenido usa este link para activar tu cuenta')
+                            flash('success')
+                            return redirect('/crearUsuarioCajero') 
+                        else:
+                            flash('La Contraseña no Cumple con lo Exigido')
+                            flash('baduser---'+usuario+'---'+email)
+                            return redirect('/crearUsuarioCajero') 
                     else:
-                        return 'Error usuario no cumple con lo exigido'
+                        flash('El Correo no Cumple con lo Exigido')
+                        flash('baduser---'+usuario+'---'+email)
+                        return redirect('/crearUsuarioCajero') 
                 else:
-                    return 'Error Correo no cumple con lo exigido'
+                    flash('El Usuario no Cumple con lo Exigido')
+                    flash('baduser---'+usuario+'---'+email)
+                    return redirect('/crearUsuarioCajero') 
             if request.form['submit'] == 'Cancelar':
                 return render_template('portal.html',header='CAFETERÍA BRIOCHE')
         else:
-            return 'Error faltan datos para validar'
+            return render_template('crearUsuarioCajero.html')
     
     except:
-        return render_template('crearsuarioCajero.html')
+        return render_template('crearUsuarioCajero.html')
 @app.route('/gestionarProducto',methods=['GET', 'POST'])
 def gestionarProducto():
     return render_template('gestionarProducto.html',titulo='Gestionar Productos',header='GESTIONAR PRODUCTOS')

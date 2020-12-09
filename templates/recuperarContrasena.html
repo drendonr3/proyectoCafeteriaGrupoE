@@ -5,6 +5,21 @@
         <div class="form"><input type="image" src="{{url_for('static',filename='images/inicioSesion.svg') }}" style="height: 250px;width: 250px;"></div>
         <form method="POST" action="/enviarCorreoRecuperacion" class="form">
             <input type="email" name ="correo" id ="correo" placeholder="Correo">
+            <div class="alert alert-warning alert-dismissible fade show">
+                {% with mensajes = get_flashed_messages() %}
+                {% if mensajes %}
+                {% for mensaje in mensajes %}
+                    {% if 'success' in mensaje %}
+                        <script>
+                        alert('Mensaje de Recuperación Enviado')
+                        </script>
+                    {% else %} 
+                        <strong style="color: black;"> {{mensaje}}</strong>
+                    {% endif %}
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </div>
             <br>
             <br>
             <input type= "submit" value="Recuperar Contraseña" name="submitRecuperarContrasena" id="submitRecuperarContrasena">

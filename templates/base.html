@@ -9,16 +9,17 @@
         <title>Cafeteria Brioche</title>
         {% endif %}
         <link rel='stylesheet' type='text/css' href="{{ url_for('static',filename='css/styles.css') }}">
+        <script src="{{ url_for('static',filename='js/script.js') }}"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </head>    
         <body class="body" background="{{url_for('static',filename='images/fondoInicio.jpg') }}"></body>
         {% if header %}
         <header class="header">
             <img class="header__img" src="{{url_for('static',filename='images/miCuenta.png')}}" alt="Cafeteria Brioche" width="">
-            <h8>Mi Cuenta</h8>
+            <h8>{{session['user']}} </h8>
             <h1>{{header}}</h1>
-            <h8 style="text-align: right;">Cerrar Sesión</h8>
-            <img class="header__img" src="{{url_for('static',filename='images/cerrarCesion.svg')}}" alt="Cafeteria Brioche" width="">
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <a href="/cerrarSesion"><h8 style="text-align: right;">Cerrar Sesión</h8></a>
+            <a href="/cerrarSesion"><img class="header__img" src="{{url_for('static',filename='images/cerrarCesion.svg')}}" alt="Cafeteria Brioche" width=""></a>
         </header>
         {% endif %}
         {% block contenido%}

@@ -4,19 +4,30 @@
     <section class="body_mean" style="background-image:{{ url_for('static',filename='images/marco.png')}}">
         <div class="form"><input type="image" class="imagenInicio" src="{{url_for('static',filename='images/inicioSesion.svg') }}" style="height: 250px;width: 250px;"></div>
         <form method="POST" action="/login" class="form">            
+            {% if usuario %}
+            <input type="text" name ="usuario" id ="usuario" placeholder="Usuario" value="{{usuario}}">
+            {%else%}
             <input type="text" name ="usuario" id ="usuario" placeholder="Usuario">
+            {% endif %}
+            <br>
+            <br>
+            <input type="password" name ="contrasena" id ="contrasena" placeholder="Contraseña">
             <div class="alert alert-warning alert-dismissible fade show">
                 {% with mensajes = get_flashed_messages() %}
                 {% if mensajes %}
                 {% for mensaje in mensajes %}
+                    {% if 'baduser' in mensaje %}
+                        {% set useraux = mensaje.split('---') %}
+                        <script>
+                        document.getElementById('usuario').value="{{useraux[1]}}"
+                        </script>
+                    {% else %}
                     <strong style="color: black;"> {{mensaje}}</strong>
-                    {% endfor %}
+                    {% endif %}    
+                {% endfor %}
                 {% endif %}
                 {% endwith %}
-                </div>
-            <br>
-            <br>
-            <input type="password" name ="contrasena" id ="contrasena" placeholder="Contraseña">
+            </div>
             <br>
             <br>
             <input type= "submit" value="Iniciar Sesion" name="submit" id="submitIniciarSesion">

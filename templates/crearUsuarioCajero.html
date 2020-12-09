@@ -3,14 +3,37 @@
 {% block contenido %}
     <section class="body_mean" style="margin-top:0px;"> 
         <div class="form"><input type="image" class="imagenInicio" src="{{url_for('static',filename='images/inicioSesion.svg') }}" style="height: 250px;width: 250px;"></div>
-        <form method="POST" action="/enviarCorreoNuevo" class="form" style="margin-top:0px;">
+        <form method="POST" action="/enviarCorreoNuevo" class="form" style="margin-top:0px;" id='enviar'>
             <input type="text" name ="usuario" id ="usuario" placeholder="Usuario">
             <br>
             <br>
             <input type="email" name ="correo" id ="correo" placeholder="Correo">
             <br>
             <br>
-            <input type="password" name ="contrasena" id ="contrasena" placeholder="Contraseña"
+            <input type="password" name ="contrasena" id ="contrasena" placeholder="Contraseña">
+            <div class="alert alert-warning alert-dismissible fade show">
+                {% with mensajes = get_flashed_messages() %}
+                {% if mensajes %}
+                {% for mensaje in mensajes %}
+                    {% if 'baduser' in mensaje %}
+                        {% set useraux = mensaje.split('---') %}
+                        <script>
+                        document.getElementById('usuario').value="{{useraux[1]}}"
+                        document.getElementById('correo').value="{{useraux[2]}}"
+                        </script>
+                    {% else %}
+                        {% if 'success' in mensaje %}
+                            <script>
+                            alert('Correo Enviado al Usuario')
+                            </script>
+                        {% else %} 
+                            <strong style="color: black;"> {{mensaje}}</strong>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </div>
             <br>
             <br>
             <input type= "submit" value="Crear" name="submit" id="crearUsuario">

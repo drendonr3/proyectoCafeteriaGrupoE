@@ -3,19 +3,22 @@
 {% block contenido %}
     <section class="body_mean" style="margin-top: 10px;">
         <div class="mosaico22">
+            {% if session['type']=='admin' %}
             <form method="POST" action="/crearUsuarioCajero" class="option">
                 <input type= "image" src="{{url_for('static',filename='images/agreagarUsuario.svg')}}" class="option-image">
                 <label class="option-label">Crear Usuario Cajero</label>
             </form>
-            
+            {% endif %}
             <form method="POST" action="/gestionarProducto" class="option">
                 <input type= "image" src="{{url_for('static',filename='images/gestionarProductos.svg')}}"  class="option-image">
                 <label class="option-label">Gestionar Productos</label>
             </form>
+            {% if session['type']=='admin' %}
             <form method="POST" action="/informeVentas" class="option">
                 <input type= "image" src="{{url_for('static',filename='images/informeVentas.png')}}" class="option-image">
                 <label class="option-label">Informe de Ventas</label>
             </form>
+            {% endif %}
             <form method="POST" action="/gestionarFacturas" class="option">
                 <input type= "image" src="{{url_for('static',filename='images/gestionarFacturas.svg')}}" class="option-image">
                 <label class="option-label">Gestionar Facturas</label>
