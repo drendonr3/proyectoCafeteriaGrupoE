@@ -2,7 +2,7 @@ from flask import Flask, render_template, request,flash,redirect,session
 import yagmail
 import utils
 import os
-from usuarios import usuarios
+from db import *
 app= Flask(__name__)
 app.secret_key=os.urandom(24)
 @app.route('/')
@@ -16,30 +16,41 @@ def cerrarSesion():
 
 @app.route('/login',methods=['POST','GET'])
 def login():
-    #try:
-    if request.method == 'POST':
-        usuario=request.form['usuario'] #sacar los campos del form
-        contrasena=request.form['contrasena']
-        if usuario=="":
-            flash('Campo de Usuario Vacío')
-            return redirect('/')
-        else:
-            if contrasena=="":
-                flash('Campo de Contraseña Vacío')
-                flash('baduser---'+usuario)
+    try:
+        if request.method == 'POST':
+            usuario=request.form['usuario'] #sacar los campos del form
+            contrasena=request.form['contrasena']
+            if usuario=="":
+                flash('Campo de Usuario Vacío')
                 return redirect('/')
             else:
-                for diccionario in usuarios:
-                    if diccionario['usuario']==usuario and contrasena==diccionario['contrasena']:
-                        session.clear()
-                        session["user"] = usuario
-                        session["auth"] = 1
-                        session["type"] = diccionario['tipo']
-                        return render_template('portal.html',header='CAFETERÍA BRIOCHE')
-                flash('Usuario o Contraseña Incorrecto')
-                flash('baduser---'+usuario)
-                return redirect('/')
-    return redirect('/')
+                if contrasena=="":
+                    flash('Campo de Contraseña Vacío')
+                    flash('baduser---'+usuario)
+                    return redirect('/')
+                else:
+                    db= Db('db/cafeteriaBriocheDb.db')
+                    conexion = db.get_db('db/cafeteriaBriocheDb.db') # abre la conexion
+                    cur=conexion.cursor()
+                    cur.execute("SELECT * FROM usuarios INNER JOIN tipos_usuario ON usuarios.tipo=tipos_usuario.id WHERE usuario = ? AND contrasena = ?", (usuario, contrasena))
+                    reg=cur.fetchone()
+                    if  reg is None:
+                        error = 'Usuario o contraseña inválidos'
+                        flash('Usuario o Contraseña Incorrecto')
+                        flash('baduser---'+usuario)
+                        db.close_db()
+                        return redirect('/')
+                    session.clear()
+                    session["user"] = usuario
+                    session["auth"] = 1
+                    session["type"] = reg[6]
+                    db.close_db()
+                    return render_template('portal.html',header='CAFETERÍA BRIOCHE')
+
+    except Exception as inst:
+        return redirect('/')
+    
+
 
 @app.route('/recurperarContrasena',methods=['POST','GET'])
 def recurperarContrasena():
@@ -80,6 +91,32 @@ def enviarCorreoNuevo():
                 if utils.isUsernameValid(usuario):
                     if utils.isEmailValid(email):
                         if utils.isPasswordValid(clave):
+                            db= Db('db/cafeteriaBriocheDb.db')
+                            conexion = db.get_db('db/cafeteriaBriocheDb.db') # abre la conexion
+                            cur=conexion.cursor()
+                            cur.execute("SELECT * FROM usuarios WHERE usuario ='"+usuario + "'")
+                            reg=cur.fetchone()
+                            if  reg is not None:
+                                flash('Ya Existe Este Usuario')
+                                flash('baduser---'+usuario+'---'+email)
+                                db.close_db()
+                                return redirect('/crearUsuarioCajero')
+                                
+                            cur=conexion.cursor()
+                            cur.execute("SELECT * FROM usuarios WHERE correo ='" + email + "'")
+                            reg=cur.fetchone()
+                            if  reg is not None:
+                                flash('Ya Existe Este Correo')
+                                flash('baduser---'+usuario+'---'+email)
+                                db.close_db()
+                                return redirect('/crearUsuarioCajero')
+                            db.close_db()
+                            db= Db('db/cafeteriaBriocheDb.db')
+                            conexion = db.get_db('db/cafeteriaBriocheDb.db') # abre la conexion
+                            cur=conexion.cursor()
+                            cur.execute('INSERT INTO usuarios (usuario, correo, contrasena,tipo) VALUES (?,?,?,?)',(usuario, email, clave,1))
+                            conexion.commit()
+                            db.close_db()
                             yag=yagmail.SMTP('danielrendon@uninorte.edu.co', 'Desde14151617') 
                             yag.send(to=email,subject='Validar Cuenta',
                             contents='Bienvenido usa este link para activar tu cuenta')
