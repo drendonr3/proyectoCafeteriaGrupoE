@@ -3,14 +3,41 @@ import yagmail
 import utils
 import os
 from db import *
+import functools
 app= Flask(__name__)
 app.secret_key=os.urandom(24)
+
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if not 'user_id' in session :
+            return redirect('/')
+        return view()
+    return wrapped_view
+
+def login_admin_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if not 'user_id' in session :
+            return redirect('/')
+        if not session['type']=='admin':
+            return redirect('/')
+        return view()
+    return wrapped_view
 @app.route('/')
-def index():
-    return render_template('index.html',titulo='Inicio de Sesión')
+def index():    
+    if not 'user_id' in session :
+        return render_template('index.html',titulo='Inicio de Sesión')
+    if not 'user' in session :
+        return render_template('index.html',titulo='Inicio de Sesión')
+    return render_template('portal.html',header='CAFETERÍA BRIOCHE')
     
 @app.route('/cerrarSesion')
 def cerrarSesion():
+    session["user"] = None
+    session["user_id"] = None
+    session["auth"] = None
+    session["type"] = None
     session.clear()
     return redirect('/')
 
@@ -40,13 +67,16 @@ def login():
                         flash('baduser---'+usuario)
                         db.close_db()
                         return redirect('/')
+                    print(reg)
                     session.clear()
-                    session["user"] = usuario
+                    session["user"] = reg[1]
+                    session["user_id"] = reg[0]
                     session["auth"] = 1
                     session["type"] = reg[6]
                     db.close_db()
                     return render_template('portal.html',header='CAFETERÍA BRIOCHE')
-
+        else:
+            return redirect('/')
     except Exception as inst:
         return redirect('/')
     
@@ -77,10 +107,12 @@ def enviarCorreoRecuperacion():
         return render_template('recuperarContrasena.html',titulo='Recuperar Contraseña')
 
 @app.route('/crearUsuarioCajero', methods=['GET', 'POST'])
+@login_admin_required
 def crearUsuarioCajero():
     return render_template('crearUsuarioCajero.html',titulo='Crear Usuario',header='CAFETERÍA BRIOCHE')
 
 @app.route('/enviarCorreoNuevo', methods=['GET', 'POST'])
+@login_admin_required
 def enviarCorreoNuevo():
     try:
         if request.method == 'POST':
@@ -137,15 +169,18 @@ def enviarCorreoNuevo():
             if request.form['submit'] == 'Cancelar':
                 return render_template('portal.html',header='CAFETERÍA BRIOCHE')
         else:
-            return render_template('crearUsuarioCajero.html')
+            return crearUsuarioCajero()
     
     except:
-        return render_template('crearUsuarioCajero.html')
+        return crearUsuarioCajero
+
 @app.route('/gestionarProducto',methods=['GET', 'POST'])
+@login_required
 def gestionarProducto():
     return render_template('gestionarProducto.html',titulo='Gestionar Productos',header='GESTIONAR PRODUCTOS')
 
 @app.route('/accionGestionarProducto',methods=['GET', 'POST'])
+@login_required
 def accionGestionarProducto():
     try:
         if request.method == 'POST':
@@ -161,6 +196,7 @@ def accionGestionarProducto():
         return render_template('portal.html',header='CAFETERÍA BRIOCHE')
 
 @app.route('/crearProducto',methods=['GET', 'POST'])
+@login_required
 def crearProducto():
     try:
         if request.method == 'POST':
@@ -176,10 +212,12 @@ def crearProducto():
         return render_template('portal.html',header='CAFETERÍA BRIOCHE')
 
 @app.route('/eliminarModificar',methods=['GET', 'POST'])
+@login_required
 def eliminarModificar():
     return render_template('eliminarModificar.html',titulo='Eliminar y/o Modificar Producto',header='ELIMINAR/MODIFICAR PRODUCTO')
 
 @app.route('/acctionEliminarModificar',methods=['GET', 'POST'])
+@login_required
 def acctionEliminarModificar():
     try:
         if request.method == 'POST':
@@ -200,10 +238,12 @@ def acctionEliminarModificar():
 
 
 @app.route('/informeVentas',methods=['GET', 'POST'])
+@login_admin_required
 def informeVentas():
     return render_template('informeVentas.html',titulo='Informe Ventas',header='INFORME VENTAS')
 
 @app.route('/accionInformeVentas',methods=['GET', 'POST'])
+@login_admin_required
 def accionInformeVentas():
     try:
         if request.method == 'POST':
@@ -221,12 +261,14 @@ def accionInformeVentas():
     
     except:
         return render_template('portal.html',header='CAFETERÍA BRIOCHE')
-        
+
 @app.route('/gestionarFacturas',methods=['GET', 'POST'])
+@login_required
 def gestionarFacturas():
     return render_template('gestionarVentas.html',titulo='Gestionar Facturas',header='GESTIONAR FACTURAS')
 
 @app.route('/accionGestionarFacturas',methods=['GET', 'POST'])
+@login_required
 def accionGestionarFacturas():
     try:
         if request.method == 'POST':
@@ -236,12 +278,13 @@ def accionGestionarFacturas():
             if request.form['submit'] == 'Cancelar':
                 return render_template('portal.html',header='CAFETERÍA BRIOCHE')
         else:
-            return 'Error faltan datos para validar'
+            return render_template('portal.html',header='CAFETERÍA BRIOCHE')
     
     except:
         return render_template('portal.html',header='CAFETERÍA BRIOCHE')
 
 @app.route('/nuevaFactura',methods=['GET', 'POST'])
+@login_required
 def nuevaFactura():
     try:
         if request.method == 'POST':
@@ -257,6 +300,7 @@ def nuevaFactura():
         return render_template('portal.html',header='CAFETERÍA BRIOCHE')
 
 @app.route('/total',methods=['GET', 'POST'])
+@login_required
 def total():
     try:
         if request.method == 'POST':
@@ -272,5 +316,6 @@ def total():
         return render_template('portal.html',header='CAFETERÍA BRIOCHE')
 
 @app.route('/verFactura',methods=['GET', 'POST'])
+@login_required
 def verFactura():
     return render_template('verFactura.html',titulo='Ver Factura',header='VER FACTURA')
