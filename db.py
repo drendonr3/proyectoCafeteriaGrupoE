@@ -2,15 +2,11 @@ import sqlite3
 from sqlite3 import Error
 
 class Db:
-    nombre=''
+    nombre='db/cafeteriaBriocheDb.db'
     conexion=''
-    def __init__(self, nombre):
-        self.nombre=nombre
-
-    def get_db(self,nombre):
+    def __init__(self):
         try:
-            self.conexion=sqlite3.connect(nombre)
-            return self.conexion
+            self.conexion = sqlite3.connect(self.nombre)
         except :
             print('Error al conectar BB..')
 

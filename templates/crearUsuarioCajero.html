@@ -3,7 +3,7 @@
 {% block contenido %}
     <section class="body_mean" style="margin-top:0px;"> 
         <div class="form"><input type="image" class="imagenInicio" src="{{url_for('static',filename='images/inicioSesion.svg') }}" style="height: 250px;width: 250px;"></div>
-        <form method="POST" action="/enviarCorreoNuevo" class="form" style="margin-top:0px;" id='enviar'>
+        <form method="POST" action="/crearUsuarioCajero" class="form" style="margin-top:0px;" id='enviar'>
             <input type="text" name ="usuario" id ="usuario" placeholder="Usuario">
             <br>
             <br>

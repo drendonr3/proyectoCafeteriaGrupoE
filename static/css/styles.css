@@ -41,7 +41,7 @@
     width: 100%;
     display: grid;
     justify-content: space-around;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 33% 33% 33%;
   }
 
   .body_facturas{
@@ -76,8 +76,8 @@
   }
 
 
-  [type="text"],[type="password"],[type="email"],[type="number"] {
-    width: 50%;
+  [type="text"],[type="password"],[type="email"],[type="number"]{
+    width: 80%;
     padding: 5px 15px;
     font-size: 16px;
     border: 2px solid black;
@@ -121,7 +121,13 @@
     border-radius: 30px;
     cursor: pointer;
   }
-  
+  submit-option{
+    margin: 0px;
+    text-align: center;
+    color: black;
+    padding: 0px;
+    padding-bottom: 10px;
+  }
   [type="submit"],[type="button"]{
     background: black;
     border: none;
@@ -138,6 +144,7 @@
     margin-top: 8px;
     width: 60%;
   }
+
   
   [type="submit"]:hover {
     box-shadow: 0 0 5px #808080;
@@ -249,4 +256,13 @@ label{
   border: 2px solid black;
   margin: 0px;
   padding: 0px;
+}
+
+.select_try{
+  width: 105%;
+  padding: 5px 15px;
+  font-size: 16px;
+  border: 2px solid black;
+  border-radius: 30px;
+  margin: 10px;
 }

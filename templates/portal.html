@@ -4,7 +4,7 @@
     <section class="body_mean" style="margin-top: 10px;">
         <div class="mosaico22">
             {% if session['type']=='admin' %}
-            <form method="POST" action="/crearUsuarioCajero" class="option">
+            <form method="GET" action="/crearUsuarioCajero" class="option">
                 <input type= "image" src="{{url_for('static',filename='images/agreagarUsuario.svg')}}" class="option-image">
                 <label class="option-label">Crear Usuario Cajero</label>
             </form>

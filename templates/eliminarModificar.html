@@ -2,13 +2,24 @@
 
 {% block contenido %}
     <section class="body_mean" style="margin-top: 0px;">
-        <form method="POST" action="/acctionEliminarModificar" class="form">
-            <div class="informe"><label class="label-list">Nombre:</label><input type="text" value="Empanada" name ="nombre" id ="nombre">
-            <label class="label-list">Precio:</label><input type="text" value="3000" name ="precio" id ="precio">
-            <label class="label-list">Unidad:</label><input type="text" value="Unidad" name ="totalVentas" id ="totalVentas"> 
-            <label class="label-list">Cantidad en Stock:</label><input type="number"value="30"  name ="cantidad" id ="cantidad"> 
-            <label class="label-list">Imagen:</label><input type="file"  name ="fileImagen" id ="fileImagen""> </div>
-            <input type= "image" src="{{url_for('static',filename='images/buñuelo.jpg')}}" >
+        <form method="POST" action="/acctionEliminarModificar" class="form" enctype="multipart/form-data" onsubmit="return validateEliminar()">
+            {% if producto %}
+            <div class="informe"><label class="label-list">Referencia:</label><input type="text" value="{{producto[3]}}" name ="referencia" id ="referencia" readonly="readonly">
+            <label class="label-list">Nombre:</label><input type="text" value="{{producto[2]}}" name ="nombre" id ="nombre">
+            <label class="label-list">Precio:</label><input type="text" value="{{producto[4]}}" name ="precio" id ="precio">
+            <label class="label-list">Categoría:</label><select class="select_try" name ="categoria" id ="categoria" onchange="agregarCategoria()">
+                {% if categorias %}
+                {% for categoria in categorias %}
+                <option value="{{categoria[0]}}">{{categoria[0]}}</option>
+                {% endfor %}
+                {% endif %}
+            <option value="agregar">Agregar Categoría</option></select> 
+            <label class="label-list">Cantidad en Stock:</label><input type="number"value="{{producto[5]}}"  name ="cantidad" id ="cantidad"> 
+            <label class="label-list">Imagen:</label><input type="file" onchange="return validateImage()" name ="file" id ="fileImagen" accept="image/*"> </div>
+            <input type="hidden" name="id" value="{{producto[0]}}">
+            {% endif %}
+            
+            <input type= "image" src="{{url_for('static',filename='imagenes_productos/')}}{{producto[6]}}" >
             <input type= "submit" value="Modificar" name="submit" id="modificar">
             <input type= "submit" value="Eliminar" name="submit" id="eliminar">
             <input type= "submit" value="Cancelar" name="submit" id="cancelar" >

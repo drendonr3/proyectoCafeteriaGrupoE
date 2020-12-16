@@ -11,9 +11,33 @@
         </form>
     </section>
     <section class="body_producto" >
-        <form method="POST" action="/eliminarModificar" class="form" style="margin-top: 0;">
-            <div class="lista_poductos"><input class="image_productos" type= "image" src="{{url_for('static',filename='images/buñuelo.jpg')}}"> 
-            <input type= "image" class="image_productos" src="{{url_for('static',filename='images/empanada.png')}}"></div>
-        </form>
+            <div class="lista_poductos">
+            {% if productos %}
+            {% for producto in productos %}
+            <form method="POST" action="/eliminarModificar" class="form" style="margin-top: 0; border: 1px solid black;border-radius: 30px;">
+                <input type= "image" class="option-image" src="{{url_for('static',filename='imagenes_productos/')}}{{producto[6]}}">
+                <input type="submit" class="submit-option" value="{{producto[2]}}"">
+                <input type="hidden" name='imagen' value='{{producto[0]}}'>
+            </form>
+            {% endfor %}
+            {% endif %}
+        </div>
     </section>
+    {% with mensajes = get_flashed_messages() %}
+    {% if mensajes %}
+    {% for mensaje in mensajes %}
+        {% if 'success' in mensaje %}
+            <script>
+            alert('Producto Modificado Con Éxito')
+            </script>
+        {% else %}
+            {% if 'elimidado' in mensaje %}
+                <script>
+                alert('Producto Eliminado Con Éxito')
+                </script>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
     {% endblock %}

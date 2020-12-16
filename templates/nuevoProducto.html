@@ -2,15 +2,67 @@
 
 {% block contenido %}
     <section class="body_mean" style="margin-top: 0px;padding-top: 0px">
-        <form method="POST" action="/crearProducto" class="form">
-            <div class="informe"><label class="label-list">Nombre:</label><input type="text" name ="nombre" id ="nombre">
+        <form method="POST" action="/crearProducto" class="form" enctype="multipart/form-data">
+            <div class="informe"><label class="label-list">Referencia:</label><input type="text" name ="referencia" id ="referencia">
+            <label class="label-list">Nombre:</label><input type="text" name ="nombre" id ="nombre">
             <label class="label-list">Precio:</label><input type="text" name ="precio" id ="precio">
-            <label class="label-list">Unidad:</label><input type="text"  name ="totalVentas" id ="totalVentas"> 
+            <label class="label-list">Categoría:</label><select class="select_try" name ="categoria" id ="categoria" onchange="agregarCategoria()">
+                {% if categorias %}
+                {% for categoria in categorias %}
+                <option value="{{categoria[0]}}">{{categoria[0]}}</option>
+                {% endfor %}
+                {% endif %}
+            <option value="agregar">Agregar Categoría</option></select> 
             <label class="label-list">Cantidad en Stock:</label><input type="number"  name ="cantidad" id ="cantidad"> 
-            <label class="label-list">Imagen:</label><input type="file"  name ="fileImagen" id ="fileImagen"> </div>
-            <input type= "image" src="{{url_for('static',filename='images/buñuelo.jpg')}}" >
-            <input type= "submit" value="Crear" name="submit" id="crear">
-            <input type= "submit" value="Cancelar" name="submit" id="cancelar" >
+            <label class="label-list">Imagen:</label><input type="file" onchange="return validateImage()" name ="file" id ="fileImagen" accept="image/*"> </div>
+            <div class="alert alert-warning alert-dismissible fade show">
+                {% with mensajes = get_flashed_messages() %}
+                {% if mensajes %}
+                {% for mensaje in mensajes %}
+                    {% if 'llenar' in mensaje %}
+                        {{mensaje}}
+                        {% set useraux = mensaje.split('---') %}
+                        {% if useraux[1] %}
+                        <script>
+                        document.getElementById('referencia').value="{{useraux[1]}}"
+                        </script>
+                        {% endif %}
+                        {% if useraux[2] %}
+                        <script>
+                        document.getElementById('nombre').value="{{useraux[2]}}"
+                        </script>
+                        {% endif %}
+                        {% if useraux[3] %}
+                        <script>
+                        document.getElementById('precio').value="{{useraux[3]}}"
+                        </script>
+                        {% endif %}
+                        {% if useraux[4] %}
+                        <script>
+                        document.getElementById('unidad').value="{{useraux[4]}}"
+                        </script>
+                        {% endif %}
+                        {% if useraux[5] %}
+                        <script>
+                        document.getElementById('categoria').value="{{useraux[5]}}"
+                        </script>
+                        {% endif %}
+                    {% else %}
+                        {% if 'success' in mensaje %}
+                            <script>
+                            alert('Producto Agregado Con Éxito')
+                            </script>
+                        {% else %} 
+                            <strong style="color: black;"> {{mensaje}}</strong>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </div>
+            <input type= "image" src="" style="display: none;" id='imagen_producto' name='imagen'>
+            <input type= "submit" value="Crear" name="submit">
+            <input type= "submit" value="Cancelar" name="submit">
         </form>
     </section>
 {% endblock %}
