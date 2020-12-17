@@ -146,6 +146,7 @@ function agreraProductoFactura(id){
     input.setAttribute("type", "text");
     input.setAttribute("id", "input-"+resp[0]);
     div.appendChild(input)
+    
     label=document.createElement('label');
     label.setAttribute("class", "label-list");
     div.appendChild(label)
