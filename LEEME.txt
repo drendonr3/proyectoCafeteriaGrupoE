@@ -1,0 +1,20 @@
+usuario administrador:
+usuario: admin
+clave: Admin12345678
+
+
+usuario cajero:
+usuario: cajero2
+clave: Desde14151617
+
+----Para ejecutar la aplicación es necesario instalar el environment en la carpeta, activarlo e instalar las siguientes librerias:
+
+flask
+flask_wtf
+yagmail
+validate_email
+
+---Tambien crear las variables de entorno en flask:
+FLASK_APP=app
+FLASK_ENV=development
+
