@@ -119,37 +119,46 @@ function buscarProducto(){
         div1.appendChild(div);
     }
     };
-    xhttp.open("POST", "/buscarProducto?nombre=" + nombre, true);
+    xhttp.open("POST", "/buscarProducto?nombre=" + nombre, false);
     xhttp.send();
     
 }
 
 function agreraProductoFactura(id){
-    /*var xhttp = new XMLHttpRequest();
+    var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        resps= JSON.parse(this.responseText);
-        form=document.getElementById("verFactura")
-        /*<div class="lista_producto_factura"><label class="label-list">Empanada</label><input type="text" value="4"></input><label class="label-list">4500</label><input type="button" value="Eliminar"></div>
-        for (i=0;i<Object.keys(resps).length;i++){
-            divinput=document.createElement('input');
-            input.setAttribute("type", "image");
-            input.setAttribute("class", "agregar");
-            input.setAttribute("src", "/static/imagenes_productos/" + resps[i][6]);
-            input.setAttribute("id", resps[i][0]);
-            input.setAttribute("onclick", "agreraProductoFactura(this.id)");
-            div.appendChild(input)
-            input=document.createElement('input');
-            input.setAttribute("type", "hidden");
-            input.setAttribute("name", "imagen");
-            input.setAttribute("value",resps[i][0])
-            div.appendChild(input)
-            
-        }
-        div1.appendChild(div);
+        resp= JSON.parse(this.responseText);
     }
     };
-    xhttp.open("POST", "/buscarProductoId?id=" + id, true);
+    xhttp.open("POST", "/buscarId?id=" + id, false);
     xhttp.send();
-*/
+    console.log(resp)
+    form=document.getElementById("verFactura")
+    div =document.createElement('div');
+    div.setAttribute("id", "div-"+resp[0]);
+    div.setAttribute("class", "lista_producto_factura prodcutoFactura");
+    label=document.createElement('label');
+    label.setAttribute("class", "label-list");
+    label.innerHTML = resp[2];
+    div.appendChild(label)
+    input=document.createElement('input');
+    input.setAttribute("type", "text");
+    input.setAttribute("id", "input-"+resp[0]);
+    div.appendChild(input)
+    label=document.createElement('label');
+    label.setAttribute("class", "label-list");
+    div.appendChild(label)
+    button=document.createElement('button');
+    button.setAttribute("form", "cc");
+    button.setAttribute("onclick", "eliminarProducto(this.id)");
+    button.setAttribute("id","button-"+resp[0])
+    button.innerHTML="Eliminar"
+    div.appendChild(button)
+    form.appendChild(div)
+}
+
+function eliminarProducto(id){
+    alert(1)
+
 }

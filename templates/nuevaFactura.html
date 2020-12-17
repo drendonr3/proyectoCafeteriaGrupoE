@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 
 {% block contenido %}
+
     <div style="display: grid; grid-template-columns: 55% 5% 38%;width: 100%;">
         <section class="body_facturas">
-            <form name="verFactura" method="POST" action="verFactura.html" class="form" id="verFactura">
+            <div class="form" id="verFactura">
                 <div class="lista_producto_factura"><label class="label-list">Producto:</label><label class="label-list">Cantidad:</label><label class="label-list">Valor Total:</label></div>
-
-            </form>
+            </div>
         </section>
         <section></section>
         <section class="body_facturas">
             <label class="label-list">Producto</label>
             <input type="text" name="nombre" style="margin: 0px;" id="nombre">
-            <button id="buscar" style="margin: 0px;" onclick="buscarProducto()">Buscar</button>
+            <button id="buscar" style="margin: 0px;" onclick="buscarProducto()" form="cc">Buscar</button>
 
             <div id="lista">
                 <div></div>

@@ -121,7 +121,7 @@
     border-radius: 30px;
     cursor: pointer;
   }
-  submit-option{
+  .submit-option{
     margin: 0px;
     text-align: center;
     color: black;
@@ -145,7 +145,22 @@
     width: 60%;
   }
 
-  
+  button{
+    background: black;
+    border: none;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    margin-top: 8px;
+    width: 60%;
+  }
   [type="submit"]:hover {
     box-shadow: 0 0 5px #808080;
     background: gray;

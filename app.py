@@ -429,8 +429,6 @@ def acctionEliminarModificar():
         print(Error)
         return render_template('portal.html',header='CAFETERÍA BRIOCHE')
 
-
-
 @app.route('/informeVentas',methods=['GET', 'POST'])
 @login_admin_required
 def informeVentas():
@@ -553,7 +551,7 @@ def buscarProducto():
         print(Error)
         return  ({'status':'FALSE'})
 
-@app.route('/buscarProductoId',methods=['GET', 'POST'])
+@app.route('/buscarId',methods=['GET', 'POST'])
 def buscarProductoId():
     try:
         if request.method == 'POST':
