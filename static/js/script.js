@@ -104,19 +104,23 @@ function buscarProducto(){
         for (i=0;i<Object.keys(resps).length;i++){
             console.log(resps)
             input=document.createElement('input');
-            input.setAttribute("type", "image");
+            input.setAttribute("type", "submit");
             input.setAttribute("class", "agregar");
-            input.setAttribute("src", "/static/imagenes_productos/" + resps[i][6]);
+            input.setAttribute("style", "background-image: url('/static/imagenes_productos/" + resps[i][6]+"');height: 150px;\
+            width: 100%;margin: 0;background-size: cover;\
+            font-size: x-large;\
+            padding:0;\
+            padding-top:60%;\
+            text-align:center;color:white;margin-right:5px;\
+            border: 1px solid black;");
+            input.setAttribute("form","cc")
+            input.setAttribute("value",resps[i][2].toUpperCase())
             input.setAttribute("id", resps[i][0]);
             input.setAttribute("onclick", "agreraProductoFactura(this.id)");
             div.appendChild(input)
-            input=document.createElement('input');
-            input.setAttribute("type", "hidden");
-            input.setAttribute("name", "imagen");
-            input.setAttribute("value",resps[i][0])
-            div.appendChild(input)
         }
         div1.appendChild(div);
+
     }
     };
     xhttp.open("POST", "/buscarProducto?nombre=" + nombre, false);
@@ -133,33 +137,83 @@ function agreraProductoFactura(id){
     };
     xhttp.open("POST", "/buscarId?id=" + id, false);
     xhttp.send();
-    console.log(resp)
-    form=document.getElementById("verFactura")
-    div =document.createElement('div');
-    div.setAttribute("id", "div-"+resp[0]);
-    div.setAttribute("class", "lista_producto_factura prodcutoFactura");
-    label=document.createElement('label');
-    label.setAttribute("class", "label-list");
-    label.innerHTML = resp[2];
-    div.appendChild(label)
-    input=document.createElement('input');
-    input.setAttribute("type", "text");
-    input.setAttribute("id", "input-"+resp[0]);
-    div.appendChild(input)
-    
-    label=document.createElement('label');
-    label.setAttribute("class", "label-list");
-    div.appendChild(label)
-    button=document.createElement('button');
-    button.setAttribute("form", "cc");
-    button.setAttribute("onclick", "eliminarProducto(this.id)");
-    button.setAttribute("id","button-"+resp[0])
-    button.innerHTML="Eliminar"
-    div.appendChild(button)
-    form.appendChild(div)
+
+    aux=document.getElementById("input-"+id);
+    if (aux == null){
+        console.log(resp);
+        form=document.getElementById("verFactura");
+        div =document.createElement('div');
+        div.setAttribute("id", "div-"+resp[0]);
+        div.setAttribute("class", "lista_producto_factura prodcutoFactura");
+        label=document.createElement('label');
+        label.setAttribute("class", "label-list");
+        label.innerHTML = resp[2].toUpperCase();
+        label.setAttribute("style","width: max-content;")
+        div.appendChild(label);
+        input=document.createElement('input');
+        input.setAttribute("type", "number");
+        input.setAttribute("name", "cantidad-"+resp[0]);
+        input.setAttribute("id", "input-"+resp[0]);
+        input.setAttribute("onchange", "calcuarSubtotal(this)");
+        input.value=1;
+        div.appendChild(input);
+        label=document.createElement('label');
+        label.setAttribute("class", "label-list");
+        label.setAttribute("id", "unit-"+resp[0]);
+        label.innerHTML=resp[4];
+        div.appendChild(label);
+        label=document.createElement('label');
+        label.setAttribute("class", "label-list");
+        label.setAttribute("id", "subtotal-"+resp[0]);
+        label.innerHTML=resp[4];
+        div.appendChild(label);
+        button=document.createElement('button');
+        button.setAttribute("form", "cc");
+        button.setAttribute("onclick", "eliminarProducto(this)");
+        button.setAttribute("id","button-"+resp[0]);
+        button.innerHTML="-";
+        div.appendChild(button);
+        form.appendChild(div);
+    } else {
+        aux.value++;
+        calcuarSubtotal(aux);
+    }
+    ocultarTotal();
 }
 
-function eliminarProducto(id){
-    alert(1)
+function ocultarTotal(){
+    divs = document.getElementsByClassName("prodcutoFactura")
+    if (divs.length>0){
+        document.getElementById("total").style.display="inline-block";
+    } else {
+        document.getElementById("total").style.display="none";
+    }
+}
+
+function eliminarProducto(element){
+    parent= element.parentElement;
+    parent.remove();
+    ocultarTotal();
+}
+
+function calcuarSubtotal(element){
+    id= element.id.split("-")[1];
+    elementSet = document.getElementById("subtotal-"+id);
+    if (parseInt(element.value)<=0){
+        elementSet.innerHTML=parseFloat(document.getElementById("unit-"+id).innerHTML);
+        element.value=1;
+    } elif: {
+        elementSet.innerHTML= parseInt(element.value)*parseFloat(document.getElementById("unit-"+id).innerHTML);
+    }
+}
+
+function filtroFecha(){
+    element = document.getElementById("tipoFecha");
+    element.parent.style()
+    if (element.value == "rango"){
+        document.getElementById("filtroRango").style.display="grid";
+    } else {
+        document.getElementById("filtroRango").style.display="none";
+    }
 
 }

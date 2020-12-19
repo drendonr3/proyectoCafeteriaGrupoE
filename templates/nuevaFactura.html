@@ -1,28 +1,31 @@
 {% extends "base.html" %}
 
 {% block contenido %}
+<body onload="ocultarTotal()">
+<form method="POST" action="/nuevaFactura" class="form">
 
     <div style="display: grid; grid-template-columns: 55% 5% 38%;width: 100%;">
         <section class="body_facturas">
             <div class="form" id="verFactura">
-                <div class="lista_producto_factura"><label class="label-list">Producto:</label><label class="label-list">Cantidad:</label><label class="label-list">Valor Total:</label></div>
+                <div class="lista_producto_factura"><label class="label-list">Producto:</label><label class="label-list">Cantidad:</label><label class="label-list" style="text-align: center;">Valor Unitario:</label><label class="label-list">Subtotal:</label></div>
             </div>
         </section>
         <section></section>
-        <section class="body_facturas">
-            <label class="label-list">Producto</label>
-            <input type="text" name="nombre" style="margin: 0px;" id="nombre">
-            <button id="buscar" style="margin: 0px;" onclick="buscarProducto()" form="cc">Buscar</button>
+        <section class="body_facturas" >
+            <div style="display: grid;grid-template-columns: 30% 45% 35%;">
+                <label class="label-list" style="width: max-content;">Producto: </label>
+            <input type="text" name="nombre" style="margin: 10px;width: 75%;" id="nombre" onkeyup="buscarProducto()">
+            <button id="buscar" style="margin: 10px;" onclick="buscarProducto()" form="cc">Buscar</button>
 
+            </div>
+            
             <div id="lista">
                 <div></div>
             </div>
         </section>
     </div>
-    <section class="body_buscador" style="width: 40%;" >
-        <form method="POST" action="/nuevaFactura" class="form">
-            <input type= "submit" value="Total" name="submit" id="total">
-            <input type= "submit" value="Cancelar" name="submit" id="cancelar" >
-        </form>
-    </section>
+    <input type= "submit" value="Total" name="submit" id="total" style="width: 20%;">
+    <input type= "submit" value="Cancelar" name="submit" id="cancelar" style="width: 20%;">
+</form>
+
 {% endblock %}

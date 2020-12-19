@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request,flash,redirect,session,url_for
+from flask import Flask, render_template, request,flash,redirect,session,url_for,make_response
 import yagmail
 import utils
 import os
@@ -6,6 +6,10 @@ from db import *
 import functools
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
+from datetime import datetime
+import json
+import pdfkit
+
 app= Flask(__name__)
 app.secret_key=os.urandom(24)
 #app.run( host='127.0.0.1', port =443, ssl_context=('micertificado.pem', 'llaveprivada.pem'))
@@ -481,14 +485,47 @@ def nuevaFactura():
     try:
         if request.method == 'POST':
             if request.form['submit'] == 'Total':
-                return render_template('total.html',titulo='Total Factura',header='TOTAL FACTURA')
+                print( request.form.to_dict())
+                entrada = request.form.to_dict()
+                total=0
+                for element in entrada:
+                    if "cantidad" in element:
+                        ids = int(element.split("-")[1])
+                        print(0)
+                        db= Db()
+                        cur=db.conexion.cursor()
+                        print(-1)
+                        cur.execute("SELECT precio FROM productos WHERE id=?",(ids,))
+                        print(-2)
+                        reg=cur.fetchone()
+                        db.close_db()
+                        print(reg[0])
+                        total+= int(entrada[element])*float(reg[0])
+                print(1)
+                fecha1=datetime.now()
+                print(2)
+                db= Db()
+                cur=db.conexion.cursor()
+                cur.execute("INSERT INTO ventas (fecha,valor_total,usuario_id) VALUES (?,?,?)",(fecha1, total,session["user_id"]))
+                db.conexion.commit()
+                db.close_db()
+                print(3)
+                db= Db()
+                cur=db.conexion.cursor()
+                cur.execute("SELECT max(id) FROM ventas WHERE usuario_id=?",(session["user_id"],))
+                reg=cur.fetchone()
+                db.close_db()
+                ids = reg[0]
+                print(4)
+                return render_template('total.html',titulo='Total Factura',header='TOTAL FACTURA',ids=ids,total=total,fecha=fecha1,entrada=entrada)
 
             if request.form['submit'] == 'Cancelar':
                 return render_template('gestionarVentas.html',titulo='Gestionar Facturas',header='GESTIONAR FACTURAS')
         else:
             return 'Error faltan datos para validar'
     
-    except:
+    except Error:
+        print(Error)
         return render_template('portal.html',header='CAFETERÍA BRIOCHE')
 
 @app.route('/total',methods=['GET', 'POST'])
@@ -497,13 +534,82 @@ def total():
     try:
         if request.method == 'POST':
             if request.form['submit'] == 'Generar':
-                return render_template('gestionarVentas.html',titulo='Gestionar Facturas',header='GESTIONAR FACTURAS')
+                id_delete=request.form["id_delete"]
+                print(request.form["entrada"])
+                entrada=request.form["entrada"]
+                detalle=[]
+                aux1=entrada.split(",")
+                total=0
+                for aux in aux1:
+                    if "cantidad" in aux:
+                        print(aux)
+                        id_agregar=int(aux.split(":")[0].split("-")[1].replace("'",""))
+                        cantidad = int(aux.split(":")[1].replace("'",""))
+                        print(id_agregar)
+                        print(cantidad)
+                        db= Db()
+                        cur=db.conexion.cursor()
+                        print(-1)
+                        cur.execute("SELECT precio,nombre FROM productos WHERE id=?",(id_agregar,))
+                        print(-2)
+                        reg=cur.fetchone()
+                        db.close_db()
+                        precio_total_producto= reg[0]*cantidad
+                        total+=precio_total_producto
+                        db= Db()
+                        cur=db.conexion.cursor()
+                        print(-3)
+                        cur.execute("INSERT INTO detalle_ventas (venta_id,producto_id,cantidad,precio_total_producto) VALUES (?,?,?,?)",(id_delete, id_agregar,cantidad,precio_total_producto))
+                        print(-4)
+                        db.conexion.commit()
+                        db.close_db()
+                        detalle.append({"nombre":reg[1],"cantidad":cantidad,"subtotal":precio_total_producto,"idProducto":id_agregar,"precio":reg[0]})
+                db= Db()
+                cur=db.conexion.cursor()
+                print(-1)
+                cur.execute("SELECT fecha FROM ventas WHERE id=?",(id_delete,))
+                print(-2)
+                reg=cur.fetchone()
+                db.close_db()
+                options = {
+                            'page-size': 'Letter',
+                            'margin-top': '0.75in',
+                            'margin-right': '0.75in',
+                            'margin-bottom': '0.75in',
+                            'margin-left': '0.75in',
+                            'encoding': "UTF-8",
+                            'custom-header' : [
+                                ('Accept-Encoding', 'gzip')
+                            ],
+                            'cookie': [
+                                ('cookie-name1', 'cookie-value1'),
+                                ('cookie-name2', 'cookie-value2'),
+                            ],
+                            'no-outline': None
+                        }
+                render=render_template("pdf_template.html",idFactura=id_delete,fecha=reg[0],detalle=detalle,total=total,usuario=session["user"])
+
+                pdf=pdfkit.from_string(render,False,options=options)
+                response=make_response(pdf)
+                response.headers["Content-Type"]="aplication/pdf"
+                response.headers["Content-Disposition"]="inline;filename=factura.pdf"
+                return response
             if request.form['submit'] == 'Cancelar':
+                id_delete=request.form["id_delete"]
+                db= Db()
+                cur=db.conexion.cursor()
+                print(id_delete)
+                cur.execute('DELETE from ventas WHERE id=? AND usuario_id=?',(id_delete,session["user_id"],))
+                print(2)
+                db.conexion.commit()
+                print(3)
+                db.close_db()
                 return render_template('nuevaFactura.html',titulo='Nueva Factura',header='NUEVA FACTURA')
         else:
             return 'Error faltan datos para validar'
     
-    except:
+    except Error:
+        print(Error)
         return render_template('portal.html',header='CAFETERÍA BRIOCHE')
 
 @app.route('/verFactura',methods=['GET', 'POST'])

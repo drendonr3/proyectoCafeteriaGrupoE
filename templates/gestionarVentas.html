@@ -1,17 +1,37 @@
 {% extends "base.html" %}
 
 {% block contenido %}
+<body onload="filtroFecha()">
     <section class="body_buscador" >
         <form method="POST" action="accionGestionarFacturas" class="form">
             <div style="width: 300px;"></div>
             <input type= "submit" value="Nueva Factura" name="submit" id="nuevaFactura">
-            <input type= "button" value="Ver Historico" name="verHistorico" id="verHistorico">
             <input type= "submit" value="Cancelar" name="submit" id="submitCancelar">
         </form>
     </section>
     <section class="body_facturas" >
         <form method="POST" action="/verFactura" class="form">
-            <div class="lista_facturas"><label class="label-list">Factura Número:</label> <label class="label-list">Fecha:</label><label class="label-list">Valor:</label></div>
+            <div class="lista_facturas" style="grid-template-columns:9% 10% auto 10% 13% 11% 15% 10%" >
+                <label class="label-list" style="width: auto; height: auto;">Fecha:</label>
+                <select id="tipoFecha" style="height: 30px;margin: 10px;width: auto;height: auto" onchange="filtroFecha(this)">
+                    <option value="siempre" selected>Siempre</option>
+                    <option value="hoy">Hoy</option><
+                    <option value="rango">Rango</option><
+                </select>
+                <div style="display: grid; grid-template-columns: 50% 50%;" id="filtroRango">
+                    <input type="date">
+                    <input type="date">
+                </div>
+                <label class="label-list" style="width: auto;height: auto">Usuario:</label>
+                <select style="height: 30px;margin: 10px;width: auto;height: auto">
+                    <option value="todos" selected>Todos</option>
+                </select>
+                <label class="label-list" style="width: auto;height: auto">Producto:</label>
+                <input type="text" style="height: 30px;margin: 10px;width: auto;height: auto">
+                </select>
+                <input type= "button" value="Buscar" id="buscar" style="width: auto;margin:10px;height: auto">
+            </div>
+            <div class="lista_facturas"><label class="label-list">Factura Número:</label> <label class="label-list">Fecha:</label><label class="label-list">Valor Total:</label> <label class="label-list">Usuario:</label></div>
             <div class="lista_facturas"><a href="/verFactura"><label class="label-list">1</label></a><label class="label-list">30/12/2020 08:30:00</label><label class="label-list">30000</label></div>
             <div class="lista_facturas"><a href="/verFactura"><label class="label-list">2</label></a><label class="label-list">30/12/2020 12:30:00</label><label class="label-list">30000</label></div>
         </form>

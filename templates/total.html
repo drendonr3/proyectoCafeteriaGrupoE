@@ -3,21 +3,42 @@
 {% block contenido %}
     <section class="body_facturas" >
         <form name="verFactura" method="POST" action="verFactura.html" enctype="text/plain" class="form" id="verFactura">
-            <div class="lista_producto_factura"><label class="label-list">Valor a Pagar:</label><label class="label-list">30000</label></div>
+            <div class="lista_facturas"><label class="label-list">Factura Número:</label> <label class="label-list">Fecha:</label><label class="label-list">Valor:</label></div>
+            
+            <div class="lista_facturas"><label class="label-list">
+                {%if ids%}
+                    {{ids}}
+                {%else%}
+                    ---
+                {%endif%}
+                </label><label class="label-list">
+                {%if fecha%}
+                    {{fecha}}
+                {%else%}
+                    ---
+                {%endif%}
+                </label><label class="label-list">
+                {%if total%}
+                    {{total}}
+                {%else%}
+                    ---
+                {%endif%}</label></div>
         </form>
     </section>
     <section class="body_buscador" style="width: 40%;" >
         <form method="POST" action="/total" class="form">
-            <input type= "radio" value="Efectivo" name="metodo" id="efectivo">Efectivo
+            <input type= "radio" value="Efectivo" name="metodo" id="efectivo" checked>Efectivo
             <input type= "radio" value="Efectivo" name="metodo" id="tarjeta">Tarjera
             <input type= "submit" value="Generar" name="submit" id="generar">
             <input type= "submit" value="Cancelar" name="submit" id="cancelar" >
+            {%if ids%}
+                   <input type="hidden" value="{{ids}}" name="id_delete">
+            {%endif%}
+            {%if entrada%}
+                   <input type="hidden" value="{{entrada}}" name="entrada">
+            {%endif%}
+            
         </form>
     </section>
-    <section class="body_facturas" >
-        <form name="verFactura" method="POST" action="verFactura.html" enctype="text/plain" class="form" id="verFactura">
-            <div class="lista_facturas"><label class="label-list">Factura Número:</label> <label class="label-list">Fecha:</label><label class="label-list">Valor:</label></div>
-            <div class="lista_facturas"><label class="label-list">---</label><label class="label-list">---</label><label class="label-list">---</label></div>
-        </form>
-    </section>
+    
 {% endblock %}
