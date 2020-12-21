@@ -16,7 +16,7 @@
         </form>
     </section>
     <section class="body_facturas" >
-        <form method="POST" action="/verFactura" class="form">
+        <form method="POST" action="/buscar" class="form">
             <div class="lista_facturas" style="grid-template-columns:9% 10% auto 10% 13% 11% 15% 10%" >
                 <label class="label-list" style="width: auto; height: auto;">Fecha:</label>
                 <select id="tipoFecha" style="height: 30px;margin: 10px;width: auto;height: auto" onchange="filtroFecha(this)">
@@ -35,11 +35,14 @@
                 <label class="label-list" style="width: auto;height: auto">Producto:</label>
                 <input type="text" style="height: 30px;margin: 10px;width: auto;height: auto">
                 </select>
-                <input type= "button" value="Buscar" id="buscar" style="width: auto;margin:10px;height: auto">
+                <input type= "submit" value="Buscar" id="buscar" style="width: auto;margin:10px;height: auto" onclick="">
             </div>
             <div class="lista_facturas"><label class="label-list">Factura Número:</label> <label class="label-list">Fecha:</label><label class="label-list">Valor Total:</label> <label class="label-list">Usuario:</label></div>
-            <div class="lista_facturas"><a href="/verFactura"><label class="label-list">1</label></a><label class="label-list">30/12/2020 08:30:00</label><label class="label-list">30000</label></div>
-            <div class="lista_facturas"><a href="/verFactura"><label class="label-list">2</label></a><label class="label-list">30/12/2020 12:30:00</label><label class="label-list">30000</label></div>
+            {% if ventas %}
+            {% for venta in ventas %}
+            <div class="lista_facturas"><a href="/verFactura"><label class="label-list">{{venta[0]}}</label></a><label class="label-list">{{venta[1]}}</label><label class="label-list">{{venta[2]}}</label><label class="label-list">{{venta[3]}}</label></div>
+            {% endfor %}
+            {% endif %}
         </form>
     </section>
 </body>

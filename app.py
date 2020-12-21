@@ -586,19 +586,19 @@ def total():
                     ],
                     'no-outline': None
                 }
-
+                return render_template('imprimir.html')
                 render=render_template("trial.html")
-                #render=render_template("pdf_template.html",idFactura=id_delete,fecha=reg[0].split(" ")[0],detalle=detalle,total=total,usuario=session["user"])
+                render=render_template("pdf_template.html",idFactura=id_delete,fecha=reg[0].split(" ")[0],detalle=detalle,total=total,usuario=session["user"])
                 pdf=pdfkit.from_string(render,False,options=options)
-                return render_template('gestionarVentas.html',titulo='ggg Facturas',header='GESTIONAR FACTURAS',accion="pdf")
+                #return render_template('gestionarVentas.html',titulo='GESTIONAR Facturas',header='GESTIONAR FACTURAS',accion="pdf")
 
-#                global response
+                global response
                 response=make_response(pdf)
                 response.headers["Content-Type"]="aplication/pdf"
                 response.headers["Content-Disposition"]="inline;filename=factura.pdf"
                 #return response
 
-#                return render_template('gestionarVentas.html',titulo='Gestionar Facturas',header='GESTIONAR FACTURAS',accion="pdf")
+                #return render_template('imprimir.html')
 
             if request.form['submit'] == 'Cancelar':
                 id_delete=request.form["id_delete"]
@@ -610,6 +610,7 @@ def total():
                 db.conexion.commit()
                 print(3)
                 db.close_db()
+
                 return render_template('nuevaFactura.html',titulo='Nueva Factura',header='NUEVA FACTURA')
         else:
             return 'Error faltan datos para validar'
@@ -664,11 +665,26 @@ def buscarProducto():
         return  ({'status':'FALSE'})
 
 
-#@app.route('/pdf',methods=['GET', 'POST'])
-#def pdf():
-    #global response
-    #return response
-
+@app.route('/pdf',methods=['GET', 'POST'])
+def pdf():
+    if request.method == 'POST':
+            if request.form['submit'] == 'Imprimir':
+                global response
+                return response
+            if request.form['submit'] == 'Salir':
+                return render_template('gestionarVentas.html',titulo='Gestionar Facturas',header='GESTIONAR FACTURAS')
+@app.route('/buscar',methods=['GET', 'POST'])
+def buscar():
+    if request.method == 'POST':
+        db= Db()
+        cur=db.conexion.cursor()
+        print(-1)
+        cur.execute("SELECT id,fecha,valor_total,usuario_id FROM ventas")
+        print(-2)
+        reg=cur.fetchall()
+        db.close_db()
+        print(reg)
+        return render_template('gestionarVentas.html',titulo='Gestionar Facturas',header='GESTIONAR FACTURAS',ventas=reg)
 @app.route('/buscarId',methods=['GET', 'POST'])
 def buscarProductoId():
     try:

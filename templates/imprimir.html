@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+    <section class="body_mean" style="background-image:{{ url_for('static',filename='images/marco.png')}}">
+        <form method="POST" action="/pdf" class="form"> 
+            <input type= "submit" value="Imprimir" name="submit" id="submitRecuperarContrasena" >
+            <input type= "submit" value="Salir" name="submit" id="submitRecuperarContrasena" >
+        </form>            
+    </section>
+{% endblock %}
