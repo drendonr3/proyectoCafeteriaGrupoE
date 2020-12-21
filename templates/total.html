@@ -2,7 +2,6 @@
 
 {% block contenido %}
     <section class="body_facturas" >
-        <form name="verFactura" method="POST" action="verFactura.html" enctype="text/plain" class="form" id="verFactura">
             <div class="lista_facturas"><label class="label-list">Factura Número:</label> <label class="label-list">Fecha:</label><label class="label-list">Valor:</label></div>
             
             <div class="lista_facturas"><label class="label-list">
@@ -23,7 +22,6 @@
                 {%else%}
                     ---
                 {%endif%}</label></div>
-        </form>
     </section>
     <section class="body_buscador" style="width: 40%;" >
         <form method="POST" action="/total" class="form">
@@ -32,10 +30,10 @@
             <input type= "submit" value="Generar" name="submit" id="generar">
             <input type= "submit" value="Cancelar" name="submit" id="cancelar" >
             {%if ids%}
-                   <input type="hidden" value="{{ids}}" name="id_delete">
+                   <input type="hidden" value="{{ids}}" name="id_delete" id="id_delete">
             {%endif%}
             {%if entrada%}
-                   <input type="hidden" value="{{entrada}}" name="entrada">
+                   <input type="hidden" value="1" name="entrada" id="entrada">
             {%endif%}
             
         </form>

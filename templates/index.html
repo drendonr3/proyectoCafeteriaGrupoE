@@ -11,8 +11,8 @@
             {% endif %}
             <br>
             <br>
-            <input type="password" name ="contrasena" id ="contrasena" placeholder="Contraseña">
-            <div class="alert alert-warning alert-dismissible fade show">
+            <input type="password" name ="contrasena" id ="contrasena" placeholder="Contrasena">
+            <div>
                 {% with mensajes = get_flashed_messages() %}
                 {% if mensajes %}
                 {% for mensaje in mensajes %}
@@ -33,7 +33,7 @@
             <input type= "submit" value="Iniciar Sesion" name="submit" id="submitIniciarSesion">
         </form>
         <form method="POST" action="/recurperarContrasena" class="form"> 
-            <input type= "submit" value="Recuperar Contraseña" name="submit" id="submitRecuperarContrasena" >
+            <input type= "submit" value="Recuperar Contrasena" name="submit" id="submitRecuperarContrasena" >
         </form>            
     </section>
 {% endblock %}

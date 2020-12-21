@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 
+
 {% block contenido %}
-<body onload="filtroFecha()">
+<body onload="filtroFecha();printPDF()">
+    {% if accion%}
+    <form action="/pdf" method="POST">
+        <input type="submit" value="sss">
+    </form>
+    {%endif%}
     <section class="body_buscador" >
         <form method="POST" action="accionGestionarFacturas" class="form">
             <div style="width: 300px;"></div>

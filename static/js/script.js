@@ -209,7 +209,7 @@ function calcuarSubtotal(element){
 
 function filtroFecha(){
     element = document.getElementById("tipoFecha");
-    element.parent.style()
+    //element.parent.style()
     if (element.value == "rango"){
         document.getElementById("filtroRango").style.display="grid";
     } else {

@@ -9,10 +9,11 @@ from werkzeug.utils import secure_filename
 from datetime import datetime
 import json
 import pdfkit
-
 app= Flask(__name__)
-app.secret_key=os.urandom(24)
-#app.run( host='127.0.0.1', port =443, ssl_context=('micertificado.pem', 'llaveprivada.pem'))
+app.secret_key='5fffa2e766c5f3d1a85ad8979864459a4d12b25e727ae7a78d1d8f958952a828L'
+
+if __name__ == '__name__':
+    app.run(debug=True, host='0.0.0.0', port =80)
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
@@ -33,10 +34,10 @@ def login_admin_required(view):
 @app.route('/')
 def index():    
     if not 'user_id' in session :
-        return render_template('index.html',titulo='Inicio de Sesión')
+        return render_template('index.html',titulo='Inicio de Sesion')
     if not 'user' in session :
-        return render_template('index.html',titulo='Inicio de Sesión')
-    return render_template('portal.html',header='CAFETERÍA BRIOCHE')
+        return render_template('index.html',titulo='Inicio de Sesion')
+    return render_template('portal.html',header='CAFETERIA BRIOCHE')
     
 @app.route('/cerrarSesion')
 def cerrarSesion():
@@ -54,11 +55,11 @@ def login():
             usuario=request.form['usuario'] #sacar los campos del form
             contrasena=request.form['contrasena']
             if usuario=="":
-                flash('Campo de Usuario Vacío')
+                flash('Campo de Usuario Vacio')
                 return redirect('/')
             else:
                 if contrasena=="":
-                    flash('Campo de Contraseña Vacío')
+                    flash('Campo de Contrasena Vacio')
                     flash('baduser---'+usuario)
                     return redirect('/')
                 else:
@@ -67,8 +68,8 @@ def login():
                     cur.execute("SELECT * FROM usuarios INNER JOIN tipos_usuario ON usuarios.tipo=tipos_usuario.id WHERE usuario = ?", (usuario,))
                     reg=cur.fetchone()
                     if  reg is None or not check_password_hash(reg[2],contrasena):
-                        error = 'Usuario o contraseña inválidos'
-                        flash('Usuario o Contraseña Incorrecto')
+                        error = 'Usuario o contrasena invalidos'
+                        flash('Usuario o Contrasena Incorrecto')
                         flash('baduser---'+usuario)
                         db.close_db()
                         return redirect('/')
@@ -78,7 +79,7 @@ def login():
                     session["auth"] = 1
                     session["type"] = reg[6]
                     db.close_db()
-                    return render_template('portal.html',header='CAFETERÍA BRIOCHE')
+                    return render_template('portal.html',header='CAFETERIA BRIOCHE')
         else:
             return redirect('/')
     except Exception as inst:
@@ -88,7 +89,7 @@ def login():
 
 @app.route('/recurperarContrasena',methods=['POST','GET'])
 def recurperarContrasena():
-    return render_template('recuperarContrasena.html',titulo='Recuperar Contraseña')
+    return render_template('recuperarContrasena.html',titulo='Recuperar Contrasena')
 
 @app.route('/enviarCorreoRecuperacion', methods=['GET', 'POST'])
 def enviarCorreoRecuperacion():
@@ -97,18 +98,18 @@ def enviarCorreoRecuperacion():
             email=request.form['correo']
             if utils.isEmailValid(email):
                 yag=yagmail.SMTP('danielrendon@uninorte.edu.co', 'Desde14151617') 
-                yag.send(to=email,subject='Recuperar Contraseña',
-                contents='Usa este link para recuperar tu contraseña')  
+                yag.send(to=email,subject='Recuperar Contrasena',
+                contents='Usa este link para recuperar tu Contrasena')  
                 flash('success')
                 return redirect('/recurperarContrasena') 
             else:
-                flash('Ingrese una Dirección de Correo Válida')
+                flash('Ingrese una Direccion de Correo Valida')
                 return redirect('/recurperarContrasena')                  
         else:
-            return render_template('recuperarContrasena.html',titulo='Recuperar Contraseña')
+            return render_template('recuperarContrasena.html',titulo='Recuperar Contrasena')
  
     except:
-        return render_template('recuperarContrasena.html',titulo='Recuperar Contraseña')
+        return render_template('recuperarContrasena.html',titulo='Recuperar Contrasena')
 
 @app.route('/crearUsuarioCajero', methods=['GET', 'POST'])
 @login_admin_required
@@ -162,7 +163,7 @@ def enviarCorreoNuevo():
                             flash('success')
                             return redirect('/crearUsuarioCajero') 
                         else:
-                            flash('La Contraseña no Cumple con lo Exigido')
+                            flash('La Contrasena no Cumple con lo Exigido')
                             flash('baduser---'+usuario+'---'+email)
                             return redirect('/crearUsuarioCajero') 
                     else:
@@ -174,12 +175,12 @@ def enviarCorreoNuevo():
                     flash('baduser---'+usuario+'---'+email)
                     return redirect('/crearUsuarioCajero') 
             if request.form['submit'] == 'Cancelar':
-                return render_template('portal.html',header='CAFETERÍA BRIOCHE')
+                return render_template('portal.html',header='CAFETERIA BRIOCHE')
         else:
-            return render_template('crearUsuarioCajero.html',titulo='Crear Usuario',header='CAFETERÍA BRIOCHE')
+            return render_template('crearUsuarioCajero.html',titulo='Crear Usuario',header='CAFETERIA BRIOCHE')
     
     except:
-        return render_template('portal.html',header='CAFETERÍA BRIOCHE')
+        return render_template('portal.html',header='CAFETERIA BRIOCHE')
 
 @app.route('/gestionarProducto',methods=['GET', 'POST'])
 @login_required
@@ -203,7 +204,7 @@ def accionGestionarProducto():
                 db.close_db()
                 return render_template('nuevoProducto.html',titulo='Nuevo Producto',header='NUEVO PRODUCTO',categorias=reg)
             if request.form['submit'] == 'Cancelar':
-                return render_template('portal.html',header='CAFETERÍA BRIOCHE')
+                return render_template('portal.html',header='CAFETERIA BRIOCHE')
             if request.form['submit'] == 'Buscar':
                 db= Db()
                 cur=db.conexion.cursor()
@@ -219,7 +220,7 @@ def accionGestionarProducto():
            gestionarProducto()
     
     except:
-        return render_template('portal.html',header='CAFETERÍA BRIOCHE')
+        return render_template('portal.html',header='CAFETERIA BRIOCHE')
 
 @app.route('/crearProducto',methods=['GET', 'POST'])
 def crearProducto():
@@ -354,7 +355,7 @@ def eliminarModificar():
         else:
             return render_template('gestionarProducto.html',titulo='Gestionar Productos',header='GESTIONAR PRODUCTOS')
     except:
-        return render_template('portal.html',header='CAFETERÍA BRIOCHE')
+        return render_template('portal.html',header='CAFETERIA BRIOCHE')
 
 @app.route('/acctionEliminarModificar',methods=['GET', 'POST'])
 @login_required
@@ -431,7 +432,7 @@ def acctionEliminarModificar():
     
     except Error:
         print(Error)
-        return render_template('portal.html',header='CAFETERÍA BRIOCHE')
+        return render_template('portal.html',header='CAFETERIA BRIOCHE')
 
 @app.route('/informeVentas',methods=['GET', 'POST'])
 @login_admin_required
@@ -447,16 +448,16 @@ def accionInformeVentas():
                 return render_template('informeVentas.html',titulo='Informe Ventas',header='INFORME VENTAS')
 
             if request.form['submit'] == 'Generar':
-                return render_template('portal.html',header='CAFETERÍA BRIOCHE')
+                return render_template('portal.html',header='CAFETERIA BRIOCHE')
             
             if request.form['submit'] == 'Cancelar':
-                return render_template('portal.html',header='CAFETERÍA BRIOCHE')
+                return render_template('portal.html',header='CAFETERIA BRIOCHE')
             
         else:
             return 'Error faltan datos para validar'
     
     except:
-        return render_template('portal.html',header='CAFETERÍA BRIOCHE')
+        return render_template('portal.html',header='CAFETERIA BRIOCHE')
 
 @app.route('/gestionarFacturas',methods=['GET', 'POST'])
 @login_required
@@ -472,12 +473,12 @@ def accionGestionarFacturas():
                 return render_template('nuevaFactura.html',titulo='Nueva Factura',header='NUEVA FACTURA')
 
             if request.form['submit'] == 'Cancelar':
-                return render_template('portal.html',header='CAFETERÍA BRIOCHE')
+                return render_template('portal.html',header='CAFETERIA BRIOCHE')
         else:
-            return render_template('portal.html',header='CAFETERÍA BRIOCHE')
+            return render_template('portal.html',header='CAFETERIA BRIOCHE')
     
     except:
-        return render_template('portal.html',header='CAFETERÍA BRIOCHE')
+        return render_template('portal.html',header='CAFETERIA BRIOCHE')
 
 @app.route('/nuevaFactura',methods=['GET', 'POST'])
 @login_required
@@ -526,7 +527,7 @@ def nuevaFactura():
     
     except Error:
         print(Error)
-        return render_template('portal.html',header='CAFETERÍA BRIOCHE')
+        return render_template('portal.html',header='CAFETERIA BRIOCHE')
 
 @app.route('/total',methods=['GET', 'POST'])
 @login_required
@@ -534,8 +535,7 @@ def total():
     try:
         if request.method == 'POST':
             if request.form['submit'] == 'Generar':
-                id_delete=request.form["id_delete"]
-                print(request.form["entrada"])
+                id_delete= request.form['id_delete']
                 entrada=request.form["entrada"]
                 detalle=[]
                 aux1=entrada.split(",")
@@ -571,29 +571,35 @@ def total():
                 print(-2)
                 reg=cur.fetchone()
                 db.close_db()
-                options = {
-                            'page-size': 'Letter',
-                            'margin-top': '0.75in',
-                            'margin-right': '0.75in',
-                            'margin-bottom': '0.75in',
-                            'margin-left': '0.75in',
-                            'encoding': "UTF-8",
-                            'custom-header' : [
-                                ('Accept-Encoding', 'gzip')
-                            ],
-                            'cookie': [
-                                ('cookie-name1', 'cookie-value1'),
-                                ('cookie-name2', 'cookie-value2'),
-                            ],
-                            'no-outline': None
-                        }
-                render=render_template("pdf_template.html",idFactura=id_delete,fecha=reg[0],detalle=detalle,total=total,usuario=session["user"])
+                options = {'page-size': 'Letter',
+                    'margin-top': '0.75in',
+                    'margin-right': '0.75in',
+                    'margin-bottom': '0.75in',
+                    'margin-left': '0.75in',
+                    'encoding': "UTF-8",
+                    'custom-header' : [
+                        ('Accept-Encoding', 'gzip')
+                    ],
+                    'cookie': [
+                        ('cookie-name1', 'cookie-value1'),
+                        ('cookie-name2', 'cookie-value2'),
+                    ],
+                    'no-outline': None
+                }
 
+                render=render_template("trial.html")
+                #render=render_template("pdf_template.html",idFactura=id_delete,fecha=reg[0].split(" ")[0],detalle=detalle,total=total,usuario=session["user"])
                 pdf=pdfkit.from_string(render,False,options=options)
+                return render_template('gestionarVentas.html',titulo='ggg Facturas',header='GESTIONAR FACTURAS',accion="pdf")
+
+#                global response
                 response=make_response(pdf)
                 response.headers["Content-Type"]="aplication/pdf"
                 response.headers["Content-Disposition"]="inline;filename=factura.pdf"
-                return response
+                #return response
+
+#                return render_template('gestionarVentas.html',titulo='Gestionar Facturas',header='GESTIONAR FACTURAS',accion="pdf")
+
             if request.form['submit'] == 'Cancelar':
                 id_delete=request.form["id_delete"]
                 db= Db()
@@ -610,7 +616,7 @@ def total():
     
     except Error:
         print(Error)
-        return render_template('portal.html',header='CAFETERÍA BRIOCHE')
+        return render_template('portal.html',header='CAFETERIA BRIOCHE')
 
 @app.route('/verFactura',methods=['GET', 'POST'])
 @login_required
@@ -656,6 +662,12 @@ def buscarProducto():
     except:
         print(Error)
         return  ({'status':'FALSE'})
+
+
+#@app.route('/pdf',methods=['GET', 'POST'])
+#def pdf():
+    #global response
+    #return response
 
 @app.route('/buscarId',methods=['GET', 'POST'])
 def buscarProductoId():

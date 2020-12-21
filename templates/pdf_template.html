@@ -10,7 +10,11 @@
             <tr>
                 <td rowspan="3" style="width: 18%;"><img src="" style="display: inline-block; text-align:left; width: 102px;"><div style="line-height: 1.15; width: auto"></div></td>
                 <td style="width: 50%;"><h3 style="text-align: left;margin:0" >CAFETERIA BRIOCHE</h3></td>
-                <td style="width: 33.33%;"><h3 style="text-align: right;margin:0">FACTURA N° {{idFactura}}</h3> </td>
+                <td style="width: 33.33%;"><h3 style="text-align: right;margin:0">FACTURA N° 
+                {%if idFactura %}
+                    {{idFactura}}
+                {%endif %}
+                </h3> </td>
             </tr>
             <tr>
                 <td style="width: 50%;"><h5 style="text-align: left;margin:0" >NIT: 12345678-0 &nbsp;TEL:0000000</h5></td>
@@ -18,7 +22,11 @@
             </tr>
             <tr>
                 <td style="width: 50%;"><h5 style="text-align: left;margin:0" >cafeteriabrioche@gmail.com</h5></td>
-                <td style="width: 33.3333%;"><h5 style="text-align: right;margin:0" >{{fecha}}</h5></td>
+                <td style="width: 33.3333%;"><h5 style="text-align: right;margin:0" >
+                {%if fecha%}
+                    {{fecha}}
+                {%endif %}
+            </h5></td>
             </tr>
         </tbody>
     </table>
@@ -42,7 +50,7 @@
                 <div data-empty="true" style="text-align: center;">TOTAL</div>
             </td>
         </tr>
-        {%if detalle%}
+    {%if detalle%}
     {%for producto in detalle%}
 
         <tr>
@@ -50,7 +58,7 @@
                 <div data-empty="true" style="text-align: center;">{{producto["idProducto"]}}</div>
             </td>
             <td style="width: 20%; border: 0border-left: 2px solid rgb(0, 0, 0); border-right: 2px solid rgb(0, 0, 0);;">
-                <div data-empty="true" style="text-align: center;">{{producto["nombre"]|upper}}</div>
+                <div data-empty="true" style="text-align: left; padding-left: 4px;">{{producto["nombre"]|upper}}</div>
             </td>
             <td style="width: 20%; border:border-left: 2px solid rgb(0, 0, 0); border-right: 2px solid rgb(0, 0, 0);;">
                 <div data-empty="true" style="text-align: center;">{{producto["cantidad"]}}</div>
@@ -58,6 +66,7 @@
             <td style="width: 20%; border: border-left: 2px solid rgb(0, 0, 0); border-right: 2px solid rgb(0, 0, 0);;">
                 <div data-empty="true" style="text-align: center;">{{producto["precio"]}}</div>
             </td>
+
             <td style="width: 20%; border: border-left: 2px solid rgb(0, 0, 0); border-right: 2px solid rgb(0, 0, 0);;">
                 <div data-empty="true" style="text-align: center;">{{producto["subtotal"]}}</div>
             </td>
@@ -79,8 +88,13 @@
             <td style="width: 79.7101%;">
                 <div data-empty="true" style="text-align: right;">&nbsp;TOTAL A PAGAR &nbsp;</div>
             </td>
+           
             <td style="width: 20.0000%;">
-                <div data-empty="true" style="text-align: center;">13000</div>
+                <div data-empty="true" style="text-align: center;">
+                    {%if total%}
+                        {{total}}
+                    {% endif %}
+                </div>
             </td>
         </tr>
     </tbody>
